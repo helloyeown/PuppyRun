@@ -5,34 +5,37 @@ canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
 // 강아지
-var puppy = {
-    x: 10,
-    y: 200,
-    width: 50,
-    height: 50,
+var createPuppy = function() {
+    // 객체를 반환하는 구조
+    return {
+        x: 10,
+        y: 200,
+        width: 50,
+        height: 50,
+        draw: function() {
+            ctx.fillStyle = 'green';
+            ctx.fillRect(this.x, this.y, this.width, this.height); 
+        }
+    };
+};
 
-    draw() {
-        ctx.fillStyle = 'green';
-        ctx.fillRect(this.x, this.y, this.width, this.height) 
-    }
-}
-
+var puppy = createPuppy();
 puppy.x += 1;
 
 
 // 장애물
-function Huddle() {
-    this.x = 500;
-    this.y = 200;
-    this.width = 50;
-    this.height = 50;
+var createHuddle = function() {
+    return {
+        x: 500,
+        y: 200,
+        width: 50,
+        height: 50,
+        draw: function() {
+            ctx.fillStyle = 'red';
+            ctx.fillRect(this.x, this.y, this.width, this.height);
+        }
+    }
 }
-
-Huddle.prototype.draw = function() {
-    ctx.fillStyle = 'red';
-    ctx.fillRect(this.x, this.y, this.width, this.height);
-};
-
 
 var timer = 0;
 var huddles = [];
@@ -45,12 +48,12 @@ function eachFrame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (timer % 100 === 0) {        // 장애물 생성 속도
-        var huddle = new Huddle();
+        var huddle = createHuddle();
         huddles.push(huddle);
     }
     
     huddles.forEach(function(a) {
-        a.x -= 5;
+        a.x -= 5;       // 장애물 다가오는 속도
         a.draw();
     });
 
