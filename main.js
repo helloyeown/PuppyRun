@@ -21,19 +21,17 @@ puppy.x += 1;
 
 
 // 장애물
-class Huddle {
-    constructor() {
-        this.x = 500;
-        this.y = 200;
-        this.width = 50;
-        this.height = 50;
-    }
-
-    draw() {
-        ctx.fillStyle = 'red';
-        ctx.fillRect(this.x, this.y, this.width, this.height) 
-    }
+function Huddle() {
+    this.x = 500;
+    this.y = 200;
+    this.width = 50;
+    this.height = 50;
 }
+
+Huddle.prototype.draw = function() {
+    ctx.fillStyle = 'red';
+    ctx.fillRect(this.x, this.y, this.width, this.height);
+};
 
 
 var timer = 0;
@@ -51,7 +49,7 @@ function eachFrame() {
         huddles.push(huddle);
     }
     
-    huddles.forEach((a) => {
+    huddles.forEach(function(a) {
         a.x -= 5;
         a.draw();
     });
