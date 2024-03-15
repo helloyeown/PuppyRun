@@ -70,18 +70,18 @@ function eachFrame() {
 
     // 점프
     if (jumping == true) {
-        puppy.y -= 8;
+        puppy.y -= 10;
         jumpTimer++;    // 프레임마다 +1
     }
 
     // 점프하고 하강
     if (jumping == false) {
         if (puppy.y < 200) {
-            puppy.y += 8;
+            puppy.y += 3;
         }
     }
 
-    if (jumpTimer > 8) {     // 100frame 넘으면 jump 중단 (jump 멈추는 위치)
+    if (jumpTimer > 12) {     // 100frame 넘으면 jump 중단 (jump 멈추는 위치)
         jumping = false;
         jumpTimer = 0;
     }
