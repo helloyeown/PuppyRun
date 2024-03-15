@@ -6,14 +6,12 @@ var animation;
 canvas.width = 1000;
 canvas.height = 700;
 
-ctx.fillStyle = 'blue'; // 원하는 색상 코드로 변경 가능
-ctx.fillRect(0, 0, canvas.width, canvas.height); // 캔버스 전체에 색상 채우기
-
 var hurdleImg = new Image();
 hurdleImg.src = './public/hurdle.png';
 
 var puppyImg = new Image();
 puppyImg.src = './public/puppy.png';
+
 
 
 // 강아지
@@ -53,6 +51,11 @@ var timer = 0;
 var hurdles = [];
 
 
+// 초기 화면 설정
+function setupInitialScreen() {
+    puppy.draw(); // 강아지 그리기
+}
+
 // animation
 function eachFrame() {
     animation = requestAnimationFrame(eachFrame);
@@ -79,18 +82,18 @@ function eachFrame() {
 
     // 점프
     if (jumping == true) {
-        puppy.y -= 10;
+        puppy.y -= 20;
         jumpTimer++;    // 프레임마다 +1
     }
 
     // 점프하고 하강
     if (jumping == false) {
         if (puppy.y < 400) {
-            puppy.y += 3;
+            puppy.y += 5;
         }
     }
 
-    if (jumpTimer > 12) {     // 12 frame 넘으면 jump 중단 (jump 멈추는 위치)
+    if (jumpTimer > 6) {     // 6 frame 넘으면 jump 중단 (jump 멈추는 위치)
         jumping = false;
 
         if (puppy.y >= 400) {
@@ -103,7 +106,12 @@ function eachFrame() {
 
 
 // 프레임마다 실행 (시간의 흐름은 항상 프레임으로 계산)
-eachFrame();
+document.querySelector('.startBtn').addEventListener('click', function() {
+    this.style.display = 'none';
+    eachFrame();
+});
+// eachFrame();
+
 
 
 // 충돌 체크
@@ -129,3 +137,4 @@ document.addEventListener('keydown', function(e) {
         jumping = true;
     }
 })
+
