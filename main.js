@@ -69,7 +69,7 @@ function eachFrame() {
         jumpTimer++;    // 프레임마다 +1
     }
 
-    if (jumpTimer > 100) {     // 100frame 넘으면 jump 중단
+    if (jumpTimer > 8) {     // 100frame 넘으면 jump 중단 (jump 멈추는 위치)
         jumping = false;
     }
 
@@ -81,7 +81,8 @@ eachFrame();
 
 var jumping = false;    // 점프 중
 document.addEventListener('keydown', function(e) {
-    if (e.code === 'Space') {
+    if (e.keyCode === 32) {
+        e.preventDefault();
         jumping = true;
     }
 })
