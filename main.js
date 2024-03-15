@@ -65,7 +65,7 @@ function eachFrame() {
 
     // 점프
     if (jumping == true) {
-        puppy.y--;
+        puppy.y-= 8;
         jumpTimer++;    // 프레임마다 +1
     }
 
