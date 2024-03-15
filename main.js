@@ -6,6 +6,12 @@ var animation;
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
 
+var hurdleImg = new Image();
+hurdleImg.src = './public/hurdle.png';
+
+var puppyImg = new Image();
+puppyImg.src = './public/puppy.png';
+
 
 // 강아지
 var createPuppy = function() {
@@ -18,6 +24,7 @@ var createPuppy = function() {
         draw: function() {
             ctx.fillStyle = 'green';
             ctx.fillRect(this.x, this.y, this.width, this.height); 
+            ctx.drawImage(puppyImg, this.x, this.y);
         }
     };
 };
@@ -27,7 +34,7 @@ puppy.x += 1;
 
 
 // 장애물
-var createHuddle = function() {
+var createHurdle = function() {
     return {
         x: 500,
         y: 200,
@@ -36,12 +43,13 @@ var createHuddle = function() {
         draw: function() {
             ctx.fillStyle = 'red';
             ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.drawImage(hurdleImg, this.x, this.y);
         }
     }
 }
 
 var timer = 0;
-var huddles = [];
+var hurdles = [];
 
 
 // animation
@@ -52,11 +60,11 @@ function eachFrame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (timer % 100 === 0) {        // 장애물 생성 속도
-        var huddle = createHuddle();
-        huddles.push(huddle);
+        var hurdle = createHurdle();
+        hurdles.push(hurdle);
     }
     
-    huddles.forEach(function(a, i, o) {
+    hurdles.forEach(function(a, i, o) {
         // x 좌표가 0 미만이면 제거 (배열에 계속 쌓이는 장애물을 제거)
         if (a.x < 0) {
             o.splice(i, 1);
@@ -81,9 +89,12 @@ function eachFrame() {
         }
     }
 
-    if (jumpTimer > 12) {     // 100frame 넘으면 jump 중단 (jump 멈추는 위치)
+    if (jumpTimer > 12) {     // 12 frame 넘으면 jump 중단 (jump 멈추는 위치)
         jumping = false;
-        jumpTimer = 0;
+
+        if (puppy.y >= 200) {
+            jumpTimer = 0;
+        }
     }
 
     puppy.draw();
@@ -95,9 +106,9 @@ eachFrame();
 
 
 // 충동 체크
-var crashCheck = function(puppy, huddle) {
-    var xCrash = (puppy.x + puppy.width >= huddle.x)
-    var yCrash = (puppy.y + puppy.height >= huddle.y)
+var crashCheck = function(puppy, hurdle) {
+    var xCrash = (puppy.x + puppy.width >= hurdle.x)
+    var yCrash = (puppy.y + puppy.height >= hurdle.y)
 
     // 충돌
     if (xCrash && yCrash) {
@@ -110,7 +121,7 @@ var crashCheck = function(puppy, huddle) {
 
 var jumping = false;    // 점프 중
 document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 32 && !jumping) {
+    if (e.keyCode === 32 && !jumping && jumpTimer === 0) {
         e.preventDefault();
         jumping = true;
     }
