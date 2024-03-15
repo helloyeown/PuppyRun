@@ -1,0 +1,55 @@
+.container {
+    height: 95vh; /* 뷰포트 높이의 100% */
+    justify-content: center; /* 수평 방향 가운데 정렬 */
+    align-items: center; /* 수직 방향 가운데 정렬 */
+    display: flex; /* Flexbox 레이아웃 사용 */
+}
+
+#canvas {
+    background: rgb(205, 205, 205);
+    margin-bottom: 5%;
+}
+
+.content {
+    width: 1200px;
+    height: 900px;
+    border: 5px black solid;
+    display: flex; /* Flexbox 레이아웃 사용 */
+    flex-direction: column; /* 요소들을 세로 방향으로 정렬 */
+    justify-content: center;
+    align-items: center; /* 수직 방향 가운데 정렬 */
+    position: relative;
+}
+
+.title {
+    font-size: 50px;
+}
+
+.startBtn {
+    position: absolute;
+
+
+    background-color: aliceblue;
+    color: #1e6b7b;
+    display: inline-block;
+    padding: 30px 50px;
+    border-radius: 15px;
+    font-family: "paybooc-Light", sans-serif;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    text-decoration: none;
+    font-size: xx-large;
+    font-weight: 600;
+    transition: 0.25s;
+    margin: 20px;
+    box-sizing: border-box;
+    border: 3px solid aliceblue;
+    color: #1e6b7b;
+}
+
+.startBtn:hover {
+    /* color: #1e6b7b;
+    background: aliceblue;*/
+    letter-spacing: 2px;
+    transform: scale(1.2);
+    cursor: pointer;
+}

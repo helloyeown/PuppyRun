@@ -3,8 +3,11 @@ var ctx = canvas.getContext('2d');
 var jumpTimer = 0;
 var animation;
 
-canvas.width = window.innerWidth - 100;
-canvas.height = window.innerHeight - 100;
+canvas.width = 1000;
+canvas.height = 700;
+
+ctx.fillStyle = 'blue'; // 원하는 색상 코드로 변경 가능
+ctx.fillRect(0, 0, canvas.width, canvas.height); // 캔버스 전체에 색상 채우기
 
 var hurdleImg = new Image();
 hurdleImg.src = './public/hurdle.png';
@@ -18,12 +21,11 @@ var createPuppy = function() {
     // 객체를 반환하는 구조
     return {
         x: 10,
-        y: 200,
+        y: 400,
         width: 50,
         height: 50,
         draw: function() {
-            ctx.fillStyle = 'green';
-            ctx.fillRect(this.x, this.y, this.width, this.height); 
+            ctx.clearRect(this.x, this.y, this.width, this.height); 
             ctx.drawImage(puppyImg, this.x, this.y);
         }
     };
@@ -36,13 +38,12 @@ puppy.x += 1;
 // 장애물
 var createHurdle = function() {
     return {
-        x: 500,
-        y: 200,
+        x: 1000,
+        y: 400,
         width: 50,
         height: 50,
         draw: function() {
-            ctx.fillStyle = 'red';
-            ctx.fillRect(this.x, this.y, this.width, this.height);
+            ctx.clearRect(this.x, this.y, this.width, this.height);
             ctx.drawImage(hurdleImg, this.x, this.y);
         }
     }
@@ -84,7 +85,7 @@ function eachFrame() {
 
     // 점프하고 하강
     if (jumping == false) {
-        if (puppy.y < 200) {
+        if (puppy.y < 400) {
             puppy.y += 3;
         }
     }
@@ -92,7 +93,7 @@ function eachFrame() {
     if (jumpTimer > 12) {     // 12 frame 넘으면 jump 중단 (jump 멈추는 위치)
         jumping = false;
 
-        if (puppy.y >= 200) {
+        if (puppy.y >= 400) {
             jumpTimer = 0;
         }
     }
@@ -105,10 +106,12 @@ function eachFrame() {
 eachFrame();
 
 
-// 충동 체크
+// 충돌 체크
 var crashCheck = function(puppy, hurdle) {
-    var xCrash = (puppy.x + puppy.width >= hurdle.x)
-    var yCrash = (puppy.y + puppy.height >= hurdle.y)
+    var gap = -10;
+
+    var xCrash = (puppy.x + puppy.width >= hurdle.x - gap)
+    var yCrash = (puppy.y + puppy.height >= hurdle.y - gap)
 
     // 충돌
     if (xCrash && yCrash) {
