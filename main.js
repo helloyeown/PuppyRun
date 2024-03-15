@@ -96,13 +96,14 @@ eachFrame();
 
 // 충동 체크
 var crashCheck = function(puppy, huddle) {
-    var xCrash = huddle.x - (puppy.x + puppy.width);
-    var yCrash = huddle.y - (puppy.y + puppy.height);
+    var xCrash = (puppy.x + puppy.width >= huddle.x)
+    var yCrash = (puppy.y + puppy.height >= huddle.y)
 
     // 충돌
-    if (xCrash < 0 || yCrash < 0) {
+    if (xCrash && yCrash) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         cancelAnimationFrame(animation);
+        console.log('crash')
     }
 }
 
