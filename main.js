@@ -1,9 +1,11 @@
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var jumpTimer = 0;
+var animation;
 
 canvas.width = window.innerWidth - 100;
 canvas.height = window.innerHeight - 100;
+
 
 // 강아지
 var createPuppy = function() {
@@ -41,9 +43,10 @@ var createHuddle = function() {
 var timer = 0;
 var huddles = [];
 
+
 // animation
 function eachFrame() {
-    requestAnimationFrame(eachFrame);
+    animation = requestAnimationFrame(eachFrame);
     timer++;
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,29 +62,54 @@ function eachFrame() {
             o.splice(i, 1);
         }
 
-        a.x -= 5;       // 장애물 다가오는 속도
+        a.x -= 5;   // 장애물 다가오는 속도
+
+        crashCheck(puppy, a);
         a.draw();
     });
 
     // 점프
     if (jumping == true) {
-        puppy.y-= 8;
+        puppy.y -= 8;
         jumpTimer++;    // 프레임마다 +1
+    }
+
+    // 점프하고 하강
+    if (jumping == false) {
+        if (puppy.y < 200) {
+            puppy.y += 8;
+        }
     }
 
     if (jumpTimer > 8) {     // 100frame 넘으면 jump 중단 (jump 멈추는 위치)
         jumping = false;
+        jumpTimer = 0;
     }
 
     puppy.draw();
 }
 
-// 프레임마다 실행
+
+// 프레임마다 실행 (시간의 흐름은 항상 프레임으로 계산)
 eachFrame();
+
+
+// 충동 체크
+var crashCheck = function(puppy, huddle) {
+    var xCrash = huddle.x - (puppy.x + puppy.width);
+    var yCrash = huddle.y - (puppy.y + puppy.height);
+
+    // 충돌
+    if (xCrash < 0 || yCrash < 0) {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        cancelAnimationFrame(animation);
+    }
+}
+
 
 var jumping = false;    // 점프 중
 document.addEventListener('keydown', function(e) {
-    if (e.keyCode === 32) {
+    if (e.keyCode === 32 && !jumping) {
         e.preventDefault();
         jumping = true;
     }
