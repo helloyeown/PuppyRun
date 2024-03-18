@@ -1,4 +1,6 @@
-var modal = document.querySelector('.modalDiv');
+var insModal = document.querySelector('.insModalContent');
+var gameOverModal = document.querySelector('.gameOverModal');
+var xBtn = document.querySelector('.xBtn');
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var jumpTimer = 0;
@@ -48,6 +50,23 @@ var createHurdle = function() {
     }
 }
 
+
+// 땅
+var ground = function() {
+    return {
+        draw: function() {
+            ctx.beginPath();
+            ctx.moveTo(0, 451); // 땅의 시작점, 강아지의 y 위치보다 조금 더 아래인 451으로 설정
+            ctx.lineTo(canvas.width, 451); // canvas의 가로 길이만큼 직선을 그림
+            ctx.strokeStyle = 'black'; // 선의 색상을 검정색으로 설정
+            ctx.lineWidth = 2;
+            ctx.stroke(); // 선을 그림
+        }
+    }
+}
+
+var ground = ground();
+
 var timer = 0;
 var hurdles = [];
 
@@ -55,14 +74,21 @@ var hurdles = [];
 // 초기 화면 설정
 function setupInitialScreen() {
     puppy.draw(); // 강아지 그리기
+    ground.draw();
 }
 
 // animation
 function eachFrame() {
+    if (isPaused) {
+        return;
+    }
+
     animation = requestAnimationFrame(eachFrame);
     timer++;
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ground.draw();
 
     if (timer % 100 === 0) {        // 장애물 생성 속도
         var hurdle = createHurdle();
@@ -106,14 +132,6 @@ function eachFrame() {
 }
 
 
-// play 버튼 누르면 게임 시작
-document.querySelector('.playBtn').addEventListener('click', function() {
-    modal.style.display = 'none';
-    eachFrame();    // 프레임마다 실행 (시간의 흐름은 항상 프레임으로 계산)
-});
-
-
-
 // 충돌 체크
 var crashCheck = function(puppy, hurdle) {
     var gap = -10;
@@ -123,8 +141,9 @@ var crashCheck = function(puppy, hurdle) {
 
     // 충돌
     if (xCrash && yCrash) {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        // ctx.clearRect(0, 0, canvas.width, canvas.height);
         cancelAnimationFrame(animation);
+        gameOverModal.style.display = 'flex';
     }
 }
 
@@ -135,5 +154,23 @@ document.addEventListener('keydown', function(e) {
         e.preventDefault();
         jumping = true;
     }
-})
+});
 
+
+var retry = function() {
+    // 게임 상태 초기화
+    timer = 0; // 타이머 초기화
+    hurdles = []; // 장애물 배열 초기화
+    jumping = false; // 점프 상태 초기화
+    jumpTimer = 0; // 점프 타이머 초기화
+    puppy.y = 400; // 강아지 위치 초기화
+
+    gameOverModal.style.display = 'none';
+
+    cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
+    eachFrame();
+}
+
+var exit = function() {
+    location.reload();
+}

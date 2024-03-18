@@ -102,12 +102,17 @@ body {
     bottom: 5%;
     border: none;
     background: none;
-    cursor: pointer;
 }
 
-.playImg {
+.img {
     width: 70px;
     height: 70px;
+}
+
+.btn {
+    border: none;
+    background: none;
+    cursor: pointer;
 }
 
 .xBtn {
@@ -122,5 +127,62 @@ body {
     width: 70px;
     height: 70px;
     cursor: pointer;
+}
+
+.modalContent2 {
+    width: 600px;
+    height: 400px;
+    background-color: aqua;
+    position: absolute;
+    /* display: flex; */
     display: none;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    line-height: 50px;
+    top: 10%;
+    left: 12%;
+    font-size: xx-large;
+}
+
+.gameOver {
+    position: absolute;
+    top: 30%;
+    font-weight: bold;
+}
+
+.complete {
+    position: absolute;
+    top: 30%;
+    font-weight: bold;
+}
+
+.selectBtn {
+    position: absolute;
+    bottom: 20%;
+}
+
+.yesnoBtn {
+    position: absolute;
+    bottom: 10%;
+}
+
+.retryBtn {
+    margin-right: 100px;
+}
+
+.yesBtn, .noBtn {
+    height: 70px;
+    font-size: 40px;
+    padding: 10px 20px;
+    line-height: normal;
+    margin-right: 30px;
+    margin-left: 30px;
+}
+
+.warning {
+    position: absolute;
+    font-weight: bold;
+    top: 15%;
+    text-align: center;
 }
