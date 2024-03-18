@@ -141,7 +141,7 @@ var crashCheck = function(puppy, hurdle) {
 
     // 충돌
     if (xCrash && yCrash) {
-        // ctx.clearRect(0, 0, canvas.width, canvas.height);
+        console.log('crash')
         cancelAnimationFrame(animation);
         gameOverModal.style.display = 'flex';
     }

@@ -1,40 +1,91 @@
 var startBtn = document.querySelector('.startBtn');
 var playBtn = document.querySelector('.playBtn');
-var modal = document.querySelector('.modalDiv');
-var exitModal = document.querySelector('.exitModal')
+var insModal = document.getElementById('insModal');
+var exitModal = document.getElementById('exitModal')
 var xBtn = document.querySelector('.xImg')
 var noBtn = document.querySelector('.noBtn');
 var isPaused = false;
+var gameStarted = false;
+
+// var initModal = function() {
+//     var modal = document.getElementById("exitModal");
+//     var instuctionModal = document.getElementById("instructionModal")
+
+//     document.getElementById("yesBtn").onclick = function() {
+//         location.replace("index.html");
+//         localStorage.setItem('hintUsed', 'false');
+//     }
+
+//     document.getElementById("noBtn").onclick = function() {
+//         resumeTimer();
+//         modal.style.display = "none";
+//         document.body.style.pointerEvents = "auto";
+//     }
+
+//     var playBtn = document.getElementById("playBtn");
+
+//     if (playBtn) {
+//         playBtn.onclick = function() {
+//             instuctionModal.style.display = "none";
+//             document.body.style.pointerEvents = "auto";
+//             initStage(1);
+//         }
+//     }
+// }
+
+var showModal = function(modalId) {
+    var modal = document.getElementById(modalId);
+    console.log(modal)
+    modal.style.display = "flex";
+    document.body.style.pointerEvents = "none";
+    modal.style.pointerEvents = "auto";
+}
+
+
+
+
 
 document.addEventListener('DOMContentLoaded', function() {
     // START 버튼 클릭
-    var toggleModal = function() {
+    startBtn.addEventListener('click', function() {
         startBtn.style.display = 'none';
         xBtn.style.display = 'block';
-        modal.style.display = 'block';
-    }
-    
-    startBtn.addEventListener('click', function() {
-        toggleModal();
-    });
+        // insModal.style.display = 'flex';      // 설명창
+        // document.body.style.pointerEvents = 'none';
+        // playBtn.style.pointerEvents = 'auto';
 
+        showModal('insModal');
+    });
+    
 
     // play 버튼 누르면 게임 시작
     playBtn.addEventListener('click', function() {
         insModal.style.display = 'none';
-        eachFrame();    // 프레임마다 실행 (시간의 흐름은 항상 프레임으로 계산)
+        xBtn.style.pointerEvents = 'auto';
+    });
+
+    // 스페이스바 누르면 게임 시작 (play 버튼 클릭후에만 작동)
+    document.addEventListener('keydown', function(event) {
+        if (event.keyCode === 32 && !gameStarted) {
+            gameStarted = true;
+            document.body.style.pointerEvents = 'auto';
+            insModal.style.display = 'none';
+
+            eachFrame(); // 게임 시작
+        }
     });
 
 
     // X 버튼 클릭
     xBtn.addEventListener('click', function() {
         isPaused = true;
-        exitModal.style.display = 'flex';
-
+        insModal.style.display = 'flex';
+        xBtn.style.pointerEvents = 'none';
     })
 
     noBtn.addEventListener('click', function() {
         exitModal.style.display = 'none';
+        xBtn.style.pointerEvents = 'auto';
 
         if (isPaused) {
             isPaused = false;

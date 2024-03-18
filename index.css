@@ -73,7 +73,7 @@ body {
     left: 14%;
 }
 
-.modalContent {
+#insModal {
     width: 900px;
     height: 600px;
     background-color: whitesmoke;
@@ -121,6 +121,7 @@ body {
     right: 3%;
     border: none;
     background: none;
+    display: none;
 }
 
 .xImg {
@@ -129,7 +130,7 @@ body {
     cursor: pointer;
 }
 
-.modalContent2 {
+#exitModal, #completeModal, #gameOverModal {
     width: 600px;
     height: 400px;
     background-color: aqua;

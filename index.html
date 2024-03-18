@@ -18,7 +18,7 @@
 
             <!-- modal -->
             <div class="modalDiv">
-                <div class="modalContent insModalContent">
+                <div class="modalContent" id="insModal">
                     <div class="howTo">How To</div>
                     <div class="instruction">
                         - 출발선에 있던 강아지가 출발하고, 장애물이 등장하면 SPACE BAR를 이용하여 점프한다.<br>
@@ -28,7 +28,7 @@
                     <button class="playBtn btn"><img src="./public/play.png" class="playImg img"></button>
                 </div>
 
-                <div class="gameOverModal modalContent2">
+                <div class="modalContent2" id="gameOverModal">
                     <div class="gameOver">GAME OVER</div>
                     <div class="selectBtn">
                         <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                <div class="completeModal modalContent2">
+                <div class="modalContent2" id="completeModal">
                     <div class="complete">Complete!</div>
                     <div class="selectBtn">
                         <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
@@ -44,7 +44,7 @@
                     </div>
                 </div>
 
-                <div class="exitModal modalContent2">
+                <div class="modalContent2" id="exitModal">
                     <div class="warning">WARNING!</div>
                     <div>정말로 나가시겠습니까?</div>
                     <div class="selectBtn yesnoBtn">
