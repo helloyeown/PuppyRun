@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./index.css">
-    <script src="./modal.js"></script>
     <title>Puppy Run!</title>
 </head>
 <body>
@@ -12,6 +11,7 @@
     <div class="container">
         <div class="content">
             <h1 class="title">Puppy Run!</h1>
+            <button class="xBtn"><img src="./public/x.png" class="xImg"></button>
             <canvas id="canvas"></canvas>
             <button class="startBtn">START</button>
         </div>
@@ -26,17 +26,18 @@
                     - 각 단계별 장애물을 피해 도착지까지 무사히 도착하도록 한다.<br>
                     - 장애물에 닿는 즉시 GAME OVER된다.
                 </div>
-                <button class="playBtn">play</button>
+                <button class="playBtn"><img src="./public/play.png" class="playImg"></button>
             </div>
         </div>
 
     </div>
-
-
-
+    
+    
+    
 
     <!-- script -->
     <script src="./main.js"></script>
+    <script src="./modal.js"></script>
     <script type="text/javascript">
         // 페이지 로드 시 초기 화면 설정
         window.onload = function() {

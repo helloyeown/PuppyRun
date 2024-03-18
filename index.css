@@ -57,8 +57,9 @@
 .modalDiv {
     width: 800px;
     height: 600px;
-    background-color: aqua;
+    background-color: whitesmoke;
     position: absolute;
+    display: none;
 }
 
 .modalContent {
@@ -68,6 +69,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    /* border: 2px solid gray; */
 }
 
 .howTo {
@@ -79,10 +81,32 @@
 
 .instruction {
     font-size: 20px;
-    /* text */
 }
 
 .playBtn {
     position: absolute;
     bottom: 5%;
+    border: none;
+    background: none;
+    cursor: pointer;
+}
+
+.playImg {
+    width: 70px;
+    height: 70px;
+}
+
+.xBtn {
+    position: absolute;
+    top: 3%;
+    right: 3%;
+    border: none;
+    background: none;
+}
+
+.xImg {
+    width: 70px;
+    height: 70px;
+    cursor: pointer;
+    display: none;
 }

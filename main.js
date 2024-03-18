@@ -1,3 +1,4 @@
+var modal = document.querySelector('.modalDiv');
 var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var jumpTimer = 0;
@@ -105,12 +106,11 @@ function eachFrame() {
 }
 
 
-// 프레임마다 실행 (시간의 흐름은 항상 프레임으로 계산)
-document.querySelector('.startBtn').addEventListener('click', function() {
-    this.style.display = 'none';
-    eachFrame();
+// play 버튼 누르면 게임 시작
+document.querySelector('.playBtn').addEventListener('click', function() {
+    modal.style.display = 'none';
+    eachFrame();    // 프레임마다 실행 (시간의 흐름은 항상 프레임으로 계산)
 });
-// eachFrame();
 
 
 
@@ -125,7 +125,6 @@ var crashCheck = function(puppy, hurdle) {
     if (xCrash && yCrash) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         cancelAnimationFrame(animation);
-        console.log('crash')
     }
 }
 
