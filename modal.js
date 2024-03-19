@@ -36,13 +36,12 @@ var gameStarted = false;
 var showModal = function(modalId) {
     var modal = document.getElementById(modalId);
     console.log(modal)
+    console.log('showModal')
     modal.style.display = "flex";
     document.body.style.pointerEvents = "none";
     modal.style.pointerEvents = "auto";
+    startBtn.style.pointerEvents = "auto";
 }
-
-
-
 
 
 document.addEventListener('DOMContentLoaded', function() {
@@ -50,9 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
     startBtn.addEventListener('click', function() {
         startBtn.style.display = 'none';
         xBtn.style.display = 'block';
-        // insModal.style.display = 'flex';      // 설명창
-        // document.body.style.pointerEvents = 'none';
-        // playBtn.style.pointerEvents = 'auto';
 
         showModal('insModal');
     });
@@ -60,12 +56,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // play 버튼 누르면 게임 시작
     playBtn.addEventListener('click', function() {
+        var insModal = document.getElementById('insModal');
+        console.log(insModal)
         insModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
     });
 
     // 스페이스바 누르면 게임 시작 (play 버튼 클릭후에만 작동)
     document.addEventListener('keydown', function(event) {
+        var insModal = document.getElementById('insModal');
+
         if (event.keyCode === 32 && !gameStarted) {
             gameStarted = true;
             document.body.style.pointerEvents = 'auto';
@@ -79,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // X 버튼 클릭
     xBtn.addEventListener('click', function() {
         isPaused = true;
-        insModal.style.display = 'flex';
+        exitModal.style.display = 'flex';
         xBtn.style.pointerEvents = 'none';
     })
 

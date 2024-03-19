@@ -9,52 +9,53 @@
 <body>
     
     <div class="container">
+
         <div class="content">
             <h1 class="title">Puppy Run!</h1>
             <button class="xBtn btn"><img src="./public/x.png" class="xImg"></button>
             <canvas id="canvas"></canvas>
             <button class="startBtn">START</button>
-            
-
-            <!-- modal -->
-            <div class="modalDiv">
-                <div class="modalContent" id="insModal">
-                    <div class="howTo">How To</div>
-                    <div class="instruction">
-                        - 출발선에 있던 강아지가 출발하고, 장애물이 등장하면 SPACE BAR를 이용하여 점프한다.<br>
-                        - 각 단계별 장애물을 피해 도착지까지 무사히 도착하도록 한다.<br>
-                        - 장애물에 닿는 즉시 GAME OVER된다.
-                    </div>
-                    <button class="playBtn btn"><img src="./public/play.png" class="playImg img"></button>
-                </div>
-
-                <div class="modalContent2" id="gameOverModal">
-                    <div class="gameOver">GAME OVER</div>
-                    <div class="selectBtn">
-                        <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
-                        <button class="exitBtn btn" onclick="exit()"><img class="img" src="./public/x.png"></button>
-                    </div>
-                </div>
-
-                <div class="modalContent2" id="completeModal">
-                    <div class="complete">Complete!</div>
-                    <div class="selectBtn">
-                        <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
-                        <button class="exitBtn btn" onclick="exit()"><img class="img" src="./public/x.png"></button>
-                    </div>
-                </div>
-
-                <div class="modalContent2" id="exitModal">
-                    <div class="warning">WARNING!</div>
-                    <div>정말로 나가시겠습니까?</div>
-                    <div class="selectBtn yesnoBtn">
-                        <button class="yesBtn" onclick="exit()">OK</button>
-                        <button class="noBtn">NO</button>
-                    </div>
-                </div>
-
-            </div>
+            <!-- </div> -->
         </div>
+
+
+        <!-- modal -->
+        <!-- <div class="modalDiv"> -->
+            <div class="modalContent" id="insModal">
+                <div class="howTo">How To</div>
+                <div class="instruction">
+                    - 출발선에 있던 강아지가 출발하고, 장애물이 등장하면 SPACE BAR를 이용하여 점프한다.<br>
+                    - 각 단계별 장애물을 피해 도착지까지 무사히 도착하도록 한다.<br>
+                    - 장애물에 닿는 즉시 GAME OVER된다.
+                </div>
+                <button class="playBtn btn"><img src="./public/play.png" class="playImg img"></button>
+            </div>
+
+            <div class="modalContent2" id="gameOverModal">
+                <div class="gameOver">GAME OVER</div>
+                <div class="selectBtn">
+                    <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
+                    <button class="exitBtn btn" onclick="exit()"><img class="img" src="./public/x.png"></button>
+                </div>
+            </div>
+
+            <div class="modalContent2" id="completeModal">
+                <div class="complete">Complete!</div>
+                <div class="selectBtn">
+                    <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
+                    <button class="exitBtn btn" onclick="exit()"><img class="img" src="./public/x.png"></button>
+                </div>
+            </div>
+
+            <div class="modalContent2" id="exitModal">
+                <div class="warning">WARNING!</div>
+                <div>정말로 나가시겠습니까?</div>
+                <div class="selectBtn yesnoBtn">
+                    <button class="yesBtn" onclick="exit()">OK</button>
+                    <button class="noBtn">NO</button>
+                </div>
+            </div>
+
     </div>
     
     
@@ -67,6 +68,10 @@
         // 페이지 로드 시 초기 화면 설정
         window.onload = function() {
             setupInitialScreen();
+
+            document.addEventListener('keydown', function(event) {
+                event.preventDefault(); // 키보드 입력에 대한 기본 동작을 막습니다.
+            });
         };
     </script>
 

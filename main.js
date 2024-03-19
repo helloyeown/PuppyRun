@@ -5,6 +5,7 @@ var canvas = document.getElementById('canvas');
 var ctx = canvas.getContext('2d');
 var jumpTimer = 0;
 var animation;
+var gameOverModal = document.getElementById('gameOverModal');
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -143,7 +144,9 @@ var crashCheck = function(puppy, hurdle) {
     if (xCrash && yCrash) {
         console.log('crash')
         cancelAnimationFrame(animation);
-        gameOverModal.style.display = 'flex';
+        // gameOverModal.style.display = 'flex';
+        showModal('gameOverModal');
+        xBtn.style.pointerEvents = 'none';
     }
 }
 
