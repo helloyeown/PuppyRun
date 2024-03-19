@@ -53,7 +53,6 @@ document.addEventListener('DOMContentLoaded', function() {
         title.style.display = 'none';
         score.style.display = 'block';
 
-
         showModal('insModal');
     });
     

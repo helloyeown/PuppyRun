@@ -135,6 +135,7 @@ function eachFrame(timestamp) {
     // 게임 시간이나 점수에 따라 speedIncreaseFactor 증가
     if (timer % 500 === 0) { // 예시: 매 500프레임마다 속도 증가
         speedIncreaseFactor += 1;
+        hurdleSpeed += 1; // 장애물 이동 속도 증가
     }
     
     hurdles.forEach(function(a, i, o) {
