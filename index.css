@@ -86,7 +86,6 @@ body {
     display: none;
     justify-content: center;
     align-items: center;
-    /* border: 2px solid gray; */
     flex-direction: column;
     top: 20%;
     left: 13%;
@@ -147,9 +146,8 @@ body {
     height: 400px;
     top: 30%; /* .wrap의 상단부터 시작 */
     left: 26%; /* .wrap의 왼쪽부터 시작 */
-    background-color: aqua;
+    background-color: whitesmoke;
     position: absolute;
-    /* display: flex; */
     display: none;
     justify-content: center;
     align-items: center;
@@ -168,6 +166,7 @@ body {
 .complete {
     position: absolute;
     top: 30%;
+    left: 37%;
     font-weight: bold;
 }
 
@@ -181,6 +180,12 @@ body {
     position: absolute;
     bottom: 10%;
     left: 22%;
+}
+
+#completeModal .selectBtn {
+    position: absolute;
+    bottom: 10%;
+    left: 44%;
 }
 
 .yesnoBtn {

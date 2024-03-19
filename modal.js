@@ -4,6 +4,7 @@ var insModal = document.getElementById('insModal');
 var exitModal = document.getElementById('exitModal')
 var xBtn = document.querySelector('.xImg')
 var noBtn = document.querySelector('.noBtn');
+var retryBtn = document.querySelector('#completeModal .retryBtn');
 var isPaused = false;
 var gameStarted = false;
 
@@ -35,8 +36,6 @@ var gameStarted = false;
 
 var showModal = function(modalId) {
     var modal = document.getElementById(modalId);
-    console.log(modal)
-    console.log('showModal')
     modal.style.display = "flex";
     document.body.style.pointerEvents = "none";
     modal.style.pointerEvents = "auto";
@@ -57,7 +56,6 @@ document.addEventListener('DOMContentLoaded', function() {
     // play 버튼 누르면 게임 시작
     playBtn.addEventListener('click', function() {
         var insModal = document.getElementById('insModal');
-        console.log(insModal)
         insModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
     });
@@ -80,10 +78,12 @@ document.addEventListener('DOMContentLoaded', function() {
     xBtn.addEventListener('click', function() {
         isPaused = true;
         exitModal.style.display = 'flex';
+        document.body.style.pointerEvents = 'auto';
         xBtn.style.pointerEvents = 'none';
     })
-
+    
     noBtn.addEventListener('click', function() {
+        console.log('click')
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
 
@@ -92,4 +92,10 @@ document.addEventListener('DOMContentLoaded', function() {
             eachFrame(); // 게임 재개
         }
     })
+
+
+    // comlete -> retry
+    // retryBtn.addEventListener('click', function() {
+    //     completeModal.style.display = 'none';
+    // })
 });

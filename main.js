@@ -6,15 +6,22 @@ var ctx = canvas.getContext('2d');
 var jumpTimer = 0;
 var animation;
 var gameOverModal = document.getElementById('gameOverModal');
+var completeModal = document.getElementById('completeModal');
+var retryBtn = document.querySelector('#completeModal .retryBtn');
 
 canvas.width = 1000;
 canvas.height = 700;
 
-var hurdleImg = new Image();
-hurdleImg.src = './public/hurdle.png';
+var hurdleImg1 = new Image();
+hurdleImg1.src = './public/hurdle.png';
+var hurdleImg2 = new Image();
+hurdleImg2.src = './public/hurdle2.png';
 
 var puppyImg = new Image();
 puppyImg.src = './public/puppy.png';
+
+var goalImg = new Image();
+goalImg.src = "./public/goal.png"
 
 
 
@@ -39,6 +46,8 @@ puppy.x += 1;
 
 // 장애물
 var createHurdle = function() {
+    var randomImg = Math.random() < 0.5 ? hurdleImg1 : hurdleImg2;
+
     return {
         x: 1000,
         y: 400,
@@ -46,10 +55,27 @@ var createHurdle = function() {
         height: 50,
         draw: function() {
             ctx.clearRect(this.x, this.y, this.width, this.height);
-            ctx.drawImage(hurdleImg, this.x, this.y);
+            ctx.drawImage(randomImg, this.x, this.y);
         }
     }
 }
+
+
+// goal
+var createGoal = function() {
+    return {
+        x: canvas.width - 50, // 예시로 캔버스의 오른쪽 끝에 배치
+        y: 400, // ground.y는 지면의 y 좌표입니다. 골이 지면 위에 서있도록 조정해주세요.
+        width: 50,
+        height: 50,
+        draw: function() {
+            ctx.clearRect(this.x, this.y, this.width, this.height);
+            ctx.drawImage(goalImg, this.x, this.y);
+        }
+    }
+}
+
+var goal = createGoal();
 
 
 // 땅
@@ -66,6 +92,7 @@ var ground = function() {
     }
 }
 
+
 var ground = ground();
 
 var timer = 0;
@@ -76,10 +103,21 @@ var hurdles = [];
 function setupInitialScreen() {
     puppy.draw(); // 강아지 그리기
     ground.draw();
+    goal.draw();
 }
 
+
+var start = null; // 게임 시작 시간
+var goalPlaced = false; // 골이 배치되었는지 여부
+
 // animation
-function eachFrame() {
+function eachFrame(timestamp) {
+    if (!start) {
+        start = timestamp; // 게임 시작 시간 설정
+    }
+
+    var elapsed = timestamp - start; // 경과 시간 계산
+
     if (isPaused) {
         return;
     }
@@ -91,7 +129,9 @@ function eachFrame() {
 
     ground.draw();
 
-    if (timer % 100 === 0) {        // 장애물 생성 속도
+    // 골이 배치되기 전에만 허들 생성
+    // if (!goalPlaced && elapsed < 29000 && timer % 100 === 0) {        // 장애물 생성 속도
+        if (!goalPlaced && elapsed < 8000 && timer % 100 === 0) {        // 장애물 생성 속도
         var hurdle = createHurdle();
         hurdles.push(hurdle);
     }
@@ -130,6 +170,22 @@ function eachFrame() {
     }
 
     puppy.draw();
+    
+    // 골 배치 로직
+    // if (!goalPlaced && elapsed >= 30000) {
+    if (!goalPlaced && elapsed >= 10000) {
+        goal.x = canvas.width; // 가정: 캔버스의 가장 오른쪽 끝에서 골이 등장
+        goal.y = 400; // 골의 y 좌표 설정
+        goalPlaced = true; // 골 배치 완료
+    }
+
+    if (goalPlaced) {
+        goal.x -= 5;
+        goal.draw();
+    }
+
+    // 게임 완료 확인
+    checkCompletion();
 }
 
 
@@ -142,9 +198,7 @@ var crashCheck = function(puppy, hurdle) {
 
     // 충돌
     if (xCrash && yCrash) {
-        console.log('crash')
         cancelAnimationFrame(animation);
-        // gameOverModal.style.display = 'flex';
         showModal('gameOverModal');
         xBtn.style.pointerEvents = 'none';
     }
@@ -162,18 +216,38 @@ document.addEventListener('keydown', function(e) {
 
 var retry = function() {
     // 게임 상태 초기화
+    start = null; // 게임 시작 시간 초기화 추가
     timer = 0; // 타이머 초기화
     hurdles = []; // 장애물 배열 초기화
     jumping = false; // 점프 상태 초기화
     jumpTimer = 0; // 점프 타이머 초기화
-    puppy.y = 400; // 강아지 위치 초기화
+    goalPlaced = false; // 게임 완료 상태 초기화
+    gameStarted = true;
+    elapsed = 0;
+    isPaused = false;
 
     gameOverModal.style.display = 'none';
-
+    completeModal.style.display = 'none';
+    document.body.style.pointerEvents = 'auto';
+    xBtn.style.pointerEvents = 'auto';
+    
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
     eachFrame();
+
+    console.log(start, timer, hurdles, jumping, goalPlaced, gameStarted, elapsed, isPaused);
 }
 
 var exit = function() {
     location.reload();
+}
+
+
+// 30초
+var checkCompletion = function() {
+    if ((puppy.x + puppy.width) >= goal.x - 8) {
+        cancelAnimationFrame(animation);
+        
+        xBtn.style.pointerEvents = 'none';
+        completeModal.style.display = 'flex';
+    }
 }

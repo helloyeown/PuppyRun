@@ -47,8 +47,8 @@
                 <div class="modalContent">
                     <div class="complete">Complete!</div>
                     <div class="selectBtn">
-                        <button class="retryBtn btn" onclick="retry()"><img class="img" src="./public/replay.png"></button>
-                        <button class="exitBtn btn" onclick="exit()"><img class="img" src="./public/x.png"></button>
+                        <button class="retryBtn btn" onclick="exit()"><img class="img" src="./public/replay.png"></button>
+                        <!-- <button class="exitBtn btn" onclick="exit()"><img class="img" src="./public/x.png"></button> -->
                     </div>
                 </div>
             </div>
@@ -70,16 +70,12 @@
     
 
     <!-- script -->
-    <script src="./modal.js"></script>
     <script src="./main.js"></script>
+    <script src="./modal.js"></script>
     <script type="text/javascript">
         // 페이지 로드 시 초기 화면 설정
         window.onload = function() {
             setupInitialScreen();
-
-            // document.addEventListener('keydown', function(event) {
-            //     event.preventDefault(); // 키보드 입력에 대한 기본 동작을 막습니다.
-            // });
         };
     </script>
 
