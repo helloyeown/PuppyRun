@@ -233,8 +233,6 @@ var retry = function() {
     
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
     eachFrame();
-
-    console.log(start, timer, hurdles, jumping, goalPlaced, gameStarted, elapsed, isPaused);
 }
 
 var exit = function() {

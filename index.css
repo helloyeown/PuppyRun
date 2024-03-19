@@ -35,6 +35,10 @@ body {
     font-size: 50px;
 }
 
+.score {
+    display: none;
+}
+
 .startBtn {
     position: absolute;
     top: 50%;

@@ -5,6 +5,8 @@ var exitModal = document.getElementById('exitModal')
 var xBtn = document.querySelector('.xImg')
 var noBtn = document.querySelector('.noBtn');
 var retryBtn = document.querySelector('#completeModal .retryBtn');
+var title = document.querySelector('.title');
+var score = document.querySelector('.score');
 var isPaused = false;
 var gameStarted = false;
 
@@ -48,6 +50,9 @@ document.addEventListener('DOMContentLoaded', function() {
     startBtn.addEventListener('click', function() {
         startBtn.style.display = 'none';
         xBtn.style.display = 'block';
+        title.style.display = 'none';
+        score.style.display = 'block';
+
 
         showModal('insModal');
     });
