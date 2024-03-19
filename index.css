@@ -64,16 +64,21 @@ body {
 
 
 /* modal */
-.modalContent {
+.modal {
     width: 100%;
     height: 100%;
-    position: absolute;
+    /* position: absolute; */
+    z-index: 1;
     display: none;
-    top: 20%;
-    left: 14%;
+}
+
+.modalContent {
+    margin: auto;
+    line-height: 50px;
 }
 
 #insModal {
+    text-align: center;
     width: 900px;
     height: 600px;
     background-color: whitesmoke;
@@ -83,7 +88,8 @@ body {
     align-items: center;
     /* border: 2px solid gray; */
     flex-direction: column;
-    line-height: 50px;
+    top: 20%;
+    left: 13%;
 }
 
 .howTo {
@@ -91,10 +97,15 @@ body {
     font-size: xx-large;
     font-weight: bold;
     top:5%;
+    left: 50%;
 }
 
 .instruction {
+    position: absolute;
+    text-align: left;
     font-size: 20px;
+    left: 5%;
+    top: 40%;
 }
 
 .playBtn {
@@ -131,8 +142,11 @@ body {
 }
 
 #exitModal, #completeModal, #gameOverModal {
+    z-index: 1;
     width: 600px;
     height: 400px;
+    top: 30%; /* .wrap의 상단부터 시작 */
+    left: 26%; /* .wrap의 왼쪽부터 시작 */
     background-color: aqua;
     position: absolute;
     /* display: flex; */
@@ -141,14 +155,13 @@ body {
     align-items: center;
     flex-direction: column;
     line-height: 50px;
-    /* top: 10%;
-    left: 12%; */
     font-size: xx-large;
 }
 
 .gameOver {
     position: absolute;
     top: 30%;
+    left: 35%;
     font-weight: bold;
 }
 
@@ -158,9 +171,16 @@ body {
     font-weight: bold;
 }
 
-.selectBtn {
+#gameOverModal .selectBtn {
     position: absolute;
     bottom: 20%;
+    left: 28%;
+}
+
+#exitModal .selectBtn {
+    position: absolute;
+    bottom: 10%;
+    left: 22%;
 }
 
 .yesnoBtn {
@@ -185,5 +205,12 @@ body {
     position: absolute;
     font-weight: bold;
     top: 15%;
+    left: 36%;
     text-align: center;
+}
+
+.confirm {
+    top: 45%;
+    left: 22%;
+    position: absolute;
 }
