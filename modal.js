@@ -10,31 +10,6 @@ var score = document.querySelector('.score');
 var isPaused = false;
 var gameStarted = false;
 
-// var initModal = function() {
-//     var modal = document.getElementById("exitModal");
-//     var instuctionModal = document.getElementById("instructionModal")
-
-//     document.getElementById("yesBtn").onclick = function() {
-//         location.replace("index.html");
-//         localStorage.setItem('hintUsed', 'false');
-//     }
-
-//     document.getElementById("noBtn").onclick = function() {
-//         resumeTimer();
-//         modal.style.display = "none";
-//         document.body.style.pointerEvents = "auto";
-//     }
-
-//     var playBtn = document.getElementById("playBtn");
-
-//     if (playBtn) {
-//         playBtn.onclick = function() {
-//             instuctionModal.style.display = "none";
-//             document.body.style.pointerEvents = "auto";
-//             initStage(1);
-//         }
-//     }
-// }
 
 var showModal = function(modalId) {
     var modal = document.getElementById(modalId);
@@ -53,6 +28,8 @@ document.addEventListener('DOMContentLoaded', function() {
         title.style.display = 'none';
         score.style.display = 'block';
 
+        gameStarted = true;
+
         showModal('insModal');
     });
     
@@ -68,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(event) {
         var insModal = document.getElementById('insModal');
 
-        if (event.keyCode === 32 && !gameStarted) {
-            gameStarted = true;
+        if (event.keyCode === 32 && gameStarted) {
+            // gameStarted = true;
             document.body.style.pointerEvents = 'auto';
             insModal.style.display = 'none';
 
