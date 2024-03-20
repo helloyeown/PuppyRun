@@ -17,7 +17,6 @@ var hurdleImg1 = new Image();
 hurdleImg1.src = './public/hurdle.png';
 var hurdleImg2 = new Image();
 hurdleImg2.src = './public/hurdle2.png';
-
 var puppyImg = new Image();
 puppyImg.src = './public/puppy.png';
 
@@ -25,7 +24,6 @@ puppyImg.src = './public/puppy.png';
 
 // 강아지
 var createPuppy = function() {
-    // 객체를 반환하는 구조
     return {
         x: 10,
         y: 400,
@@ -71,13 +69,12 @@ var ground = function() {
     }
 }
 
-
 var ground = ground();
 
 
 // 초기 화면 설정
 function setupInitialScreen() {
-    puppy.draw(); // 강아지 그리기
+    puppy.draw();
     ground.draw();
 }
 
@@ -99,8 +96,8 @@ function eachFrame() {
     timer++;
 
     if (timer % scoreUpdateTime === 0) {
-        currentScore += 10;  // 점수 10점 증가
-        displayScore(currentScore);  // 점수 업데이트 함수 호출
+        currentScore += 10; 
+        displayScore(currentScore);
     }
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -116,14 +113,14 @@ function eachFrame() {
         var intervalDecrease = Math.floor(timer / 300); // 300 프레임마다 간격 감소
 
         // 30초가 지난 후 추가 감소
-        if (timer > 1800) { // 1800 프레임 == 30초, FPS가 60일 경우
-            var additionalDecrease = Math.floor(timer / 400); // 30초가 지난 후, 600프레임마다 간격 추가 감소
-            maxInterval = Math.max(20, maxInterval - additionalDecrease); // 여기서 20은 최소 간격을 의미하며, 필요에 따라 조정 가능
+        if (timer > 1800) {
+            var additionalDecrease = Math.floor(timer / 400);
+            maxInterval = Math.max(20, maxInterval - additionalDecrease);
         }
 
         if (timer > 2500) {
-            var extremeDecrease = Math.floor(timer / 300); // 2000 프레임이 넘었을 때, 500프레임마다 간격 추가 감소
-            maxInterval = Math.max(1, maxInterval - (extremeDecrease * 2)); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
+            var extremeDecrease = Math.floor(timer / 300);
+            maxInterval = Math.max(1, maxInterval - (extremeDecrease * 2));
         }
 
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease + 1)) + 30 + Math.floor(Math.random()*20);
@@ -178,7 +175,6 @@ var crashCheck = function(puppy, hurdle) {
     var xCrash = (puppy.x + puppy.width >= hurdle.x - gap)
     var yCrash = (puppy.y + puppy.height >= hurdle.y - gap)
 
-    // 충돌
     if (xCrash && yCrash) {
         cancelAnimationFrame(animation);
         overAudio.play();
@@ -189,6 +185,7 @@ var crashCheck = function(puppy, hurdle) {
 
 
 var jumping = false;    // 점프 중
+
 document.addEventListener('keydown', function(e) {
     if (e.keyCode === 32 && !jumping && jumpTimer === 0) {
         e.preventDefault();
@@ -196,22 +193,22 @@ document.addEventListener('keydown', function(e) {
     }
 });
 
-
+// game over 후 다시 시작
 var retry = function() {
     // 게임 상태 초기화
-    timer = 0; // 타이머 초기화
-    hurdles = []; // 장애물 배열 초기화
-    jumping = false; // 점프 상태 초기화
-    jumpTimer = 0; // 점프 타이머 초기화
+    timer = 0;
+    hurdles = [];
+    jumping = false;
+    jumpTimer = 0;
     isPaused = false;
-    currentScore = 0; // 점수 초기화
+    currentScore = 0;
     hurdleSpeed = 5;
     nextHurdleTime = 10;
     
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
     xBtn.style.pointerEvents = 'auto';
-    displayScore(currentScore); // 초기 점수 화면에 표시
+    displayScore(currentScore);
     
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
     eachFrame();
@@ -220,7 +217,6 @@ var retry = function() {
 var exit = function() {
     location.reload();
 }
-
 
 var displayScore = function(currentScore) {
     var scoreElement = document.querySelector('.score');

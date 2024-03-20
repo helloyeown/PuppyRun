@@ -37,28 +37,25 @@ document.addEventListener('DOMContentLoaded', function() {
     });
     
 
-    // play 버튼 누르면 게임 시작
+    // play 버튼 클릭
     playBtn.addEventListener('click', function() {
         var insModal = document.getElementById('insModal');
         insModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
     });
 
-    // 스페이스바 누르면 게임 시작 (play 버튼 클릭후에만 작동)
+    // play 버튼 스페이스바
     document.addEventListener('keydown', function(event) {
-        var insModal = document.getElementById('insModal');
-
         if (event.keyCode === 32 && gameStarted && !animation) {
-            // gameStarted = true;
             document.body.style.pointerEvents = 'auto';
             insModal.style.display = 'none';
 
-            eachFrame(); // 게임 시작
+            eachFrame();
         }
     });
 
 
-    // X 버튼 클릭
+    // X 버튼 클릭 (일시정지)
     xBtn.addEventListener('click', function() {
         isPaused = true;
         exitModal.style.display = 'flex';
@@ -66,14 +63,14 @@ document.addEventListener('DOMContentLoaded', function() {
         xBtn.style.pointerEvents = 'none';
     })
     
+    // 게임 재개
     noBtn.addEventListener('click', function() {
-        console.log('click')
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
 
         if (isPaused) {
             isPaused = false;
-            eachFrame(); // 게임 재개
+            eachFrame();
         }
     })
 });
