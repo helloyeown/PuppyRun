@@ -73,7 +73,6 @@ var ground = function() {
 var ground = ground();
 
 
-
 // 초기 화면 설정
 function setupInitialScreen() {
     puppy.draw(); // 강아지 그리기
@@ -125,19 +124,8 @@ function eachFrame() {
             maxInterval = Math.max(1, maxInterval - extremeDecrease); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
 
-        // nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 40;
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease + 1)) + 30 + Math.floor(Math.random()*20);
     }
-
-    // if (timer > nextHurdleTime) {
-    //     var hurdle = createHurdle();
-    //     hurdles.push(hurdle);
-
-    //     // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
-    //     var maxInterval = Math.max(30, 70 - Math.floor(timer / 1000));  // 생성 간격 최대값
-    //     var intervalDecrease = Math.floor(timer / 300); // 300 프레임마다 간격 감소
-    //     nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 40;
-    // }
 
     if (timer % 500 === 0 && timer <= 3000) { 
         hurdleSpeed += 1;
@@ -151,7 +139,7 @@ function eachFrame() {
 
         a.x -= hurdleSpeed;   // 장애물 다가오는 속도
 
-        // crashCheck(puppy, a);
+        crashCheck(puppy, a);
         a.draw();
     });
 
@@ -213,6 +201,8 @@ var retry = function() {
     jumpTimer = 0; // 점프 타이머 초기화
     isPaused = false;
     currentScore = 0; // 점수 초기화
+    hurdleSpeed = 5;
+    nextHurdleTime = 10;
     
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
