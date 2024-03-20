@@ -85,9 +85,9 @@ function setupInitialScreen() {
 
 var start = null; // 게임 시작 시간
 var speedIncreaseFactor = 0;
-var hurdleSpeed = 5;
+var hurdleSpeed = 5;    // 장애물 속도
 var score = 0;
-var nextHurdleTime = 10;
+var nextHurdleTime = 10;    // 장애물 생성 속도
 
 // animation
 function eachFrame(timestamp) {
@@ -116,7 +116,7 @@ function eachFrame(timestamp) {
         var maxInterval = Math.max(30, 70 - Math.floor(timer / 7000));
 
         // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
-        var intervalDecrease = Math.floor(timer / 5000); // 예를 들어, 5000프레임마다 간격 감소
+        var intervalDecrease = Math.floor(timer / 3000); // 예를 들어, 5000프레임마다 간격 감소
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 30;
     }
 
@@ -128,9 +128,9 @@ function eachFrame(timestamp) {
 
     // 속도가 증가할 때마다 추가 장애물 생성 로직 추가
     // if (speedIncreaseFactor % 100 === 0) { // 예를 들어, 속도 증가 요인이 5의 배수일 때마다
-    //     var extraHurdle = createHurdle(); // 추가 장애물 생성
-    //     extraHurdle.x += 100; // 기존 장애물과 겹치지 않도록 x 좌표 조정
-    //     hurdles.push(extraHurdle); // 생성된 추가 장애물을 장애물 배열에 추가
+        // var extraHurdle = createHurdle(); // 추가 장애물 생성
+        // extraHurdle.x += 100; // 기존 장애물과 겹치지 않도록 x 좌표 조정
+        // hurdles.push(extraHurdle); // 생성된 추가 장애물을 장애물 배열에 추가
     // }
     
     hurdles.forEach(function(a, i, o) {
@@ -155,6 +155,15 @@ function eachFrame(timestamp) {
     if (jumping == false) {
         if (puppy.y < 400) {
             puppy.y += 7;
+        }
+    }
+
+    // 하강 속도 조정 로직 (jumping == false인 경우)
+    if (jumping == false) {
+        if (puppy.y < 400) {
+            // 속도 증가 요인에 따라 하강 속도 조정
+            var descentSpeed = 7 + speedIncreaseFactor * 0.5; // 예를 들어, 속도 증가 요인이 1 증가할 때마다 하강 속도를 0.5만큼 증가
+            puppy.y += descentSpeed;
         }
     }
 
