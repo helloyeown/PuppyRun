@@ -139,7 +139,7 @@ function eachFrame() {
 
         a.x -= hurdleSpeed;   // 장애물 다가오는 속도
 
-        // crashCheck(puppy, a);
+        crashCheck(puppy, a);
         a.draw();
     });
 

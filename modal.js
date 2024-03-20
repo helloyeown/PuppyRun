@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.addEventListener('keydown', function(event) {
         var insModal = document.getElementById('insModal');
 
-        if (event.keyCode === 32 && gameStarted) {
+        if (event.keyCode === 32 && gameStarted && !animation) {
             // gameStarted = true;
             document.body.style.pointerEvents = 'auto';
             insModal.style.display = 'none';
