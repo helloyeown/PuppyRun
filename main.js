@@ -114,9 +114,9 @@ function eachFrame(timestamp) {
         var hurdle = createHurdle();
         hurdles.push(hurdle);
 
-        var maxInterval = Math.max(30, 70 - Math.floor(timer / 7000));
-
+        
         // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
+        var maxInterval = Math.max(30, 70 - Math.floor(timer / 7000));
         var intervalDecrease = Math.floor(timer / 5000); // 예를 들어, 5000프레임마다 간격 감소
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 30;
     }
@@ -126,13 +126,6 @@ function eachFrame(timestamp) {
         speedIncreaseFactor += 1;
         hurdleSpeed += 1; // 장애물 이동 속도 증가
     }
-
-    // 속도가 증가할 때마다 추가 장애물 생성 로직 추가
-    // if (speedIncreaseFactor % 100 === 0) { // 예를 들어, 속도 증가 요인이 5의 배수일 때마다
-    //     var extraHurdle = createHurdle(); // 추가 장애물 생성
-    //     extraHurdle.x += 100; // 기존 장애물과 겹치지 않도록 x 좌표 조정
-    //     hurdles.push(extraHurdle); // 생성된 추가 장애물을 장애물 배열에 추가
-    // }
     
     hurdles.forEach(function(a, i, o) {
         // x 좌표가 0 미만이면 제거 (배열에 계속 쌓이는 장애물을 제거)
@@ -142,7 +135,7 @@ function eachFrame(timestamp) {
 
         a.x -= hurdleSpeed;   // 장애물 다가오는 속도
 
-        crashCheck(puppy, a);
+        // crashCheck(puppy, a);
         a.draw();
     });
 
