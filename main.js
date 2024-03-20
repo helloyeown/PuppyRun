@@ -9,6 +9,7 @@ var gameOverModal = document.getElementById('gameOverModal');
 var retryBtn = document.querySelector('#completeModal .retryBtn');
 var jumpAudio = document.querySelector('#jumpAudio');
 var overAudio = document.querySelector('#overAudio');
+var bgPlay = document.querySelector('#bgPlay');
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -144,6 +145,7 @@ function eachFrame() {
 
     // 점프
     if (jumping == true) {
+        jumpAudio.currentTime = 0;
         jumpAudio.play();
         puppy.y -= 21;
         jumpTimer++;    // 프레임마다 +1
@@ -177,6 +179,8 @@ var crashCheck = function(puppy, hurdle) {
 
     if (xCrash && yCrash) {
         cancelAnimationFrame(animation);
+        bgPlay.pause();
+        bgPlay.currentTime = 0;
         overAudio.play();
         showModal('gameOverModal');
         xBtn.style.pointerEvents = 'none';

@@ -8,6 +8,8 @@ var retryBtn = document.querySelector('#completeModal .retryBtn');
 var title = document.querySelector('.title');
 var score = document.querySelector('.score');
 var startAudio = document.querySelector('#startAudio');
+var bgStart = document.querySelector('#bgStart');
+var bgPlay = document.querySelector('#bgPlay');
 var isPaused = false;
 var gameStarted = false;
 
@@ -24,6 +26,8 @@ var showModal = function(modalId) {
 document.addEventListener('DOMContentLoaded', function() {
     // START 버튼 클릭
     startBtn.addEventListener('click', function() {
+        bgStart.pause();
+        bgStart.currentTime = 0;
         startAudio.play();
 
         startBtn.style.display = 'none';
@@ -42,13 +46,15 @@ document.addEventListener('DOMContentLoaded', function() {
         var insModal = document.getElementById('insModal');
         insModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
+        bgPlay.play();
     });
 
     // play 버튼 스페이스바
     document.addEventListener('keydown', function(event) {
         if (event.keyCode === 32 && gameStarted && !animation) {
-            document.body.style.pointerEvents = 'auto';
             insModal.style.display = 'none';
+            document.body.style.pointerEvents = 'auto';
+            bgPlay.play();
 
             eachFrame();
         }
@@ -61,12 +67,14 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'flex';
         document.body.style.pointerEvents = 'auto';
         xBtn.style.pointerEvents = 'none';
+        bgPlay.pause();
     })
     
     // 게임 재개
     noBtn.addEventListener('click', function() {
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
+        bgPlay.play();
 
         if (isPaused) {
             isPaused = false;

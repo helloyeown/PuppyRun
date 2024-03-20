@@ -60,6 +60,8 @@
     <audio id="jumpAudio" src="./public/audio/jumpAudio.mp3" preload="auto"></audio>
     <audio id="overAudio" src="./public/audio/over.mp3" preload="auto"></audio>
     <audio id="startAudio" src="./public/audio/start.mp3" preload="auto"></audio>
+    <audio id="bgStart" src="./public/audio/bgStart.mp3" preload="auto"></audio>
+    <audio id="bgPlay" src="./public/audio/bgPlay.mp3" preload="auto"></audio>
 
     
 
@@ -70,6 +72,9 @@
         // 페이지 로드 시 초기 화면 설정
         window.onload = function() {
             setupInitialScreen();
+            
+            var bgStart = document.querySelector('#bgStart');
+            bgStart.play();
         };
     </script>
 
