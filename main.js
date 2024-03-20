@@ -80,7 +80,6 @@ var hurdles = [];
 function setupInitialScreen() {
     puppy.draw(); // 강아지 그리기
     ground.draw();
-    // goal.draw();
 }
 
 
