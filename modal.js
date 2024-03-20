@@ -8,7 +8,7 @@ var retryBtn = document.querySelector('#completeModal .retryBtn');
 var title = document.querySelector('.title');
 var score = document.querySelector('.score');
 var startAudio = document.querySelector('#startAudio');
-var bgStart = document.querySelector('#bgStart');
+// var bgStart = document.querySelector('#bgStart');
 var bgPlay = document.querySelector('#bgPlay');
 var isPaused = false;
 var gameStarted = false;
@@ -26,8 +26,8 @@ var showModal = function(modalId) {
 document.addEventListener('DOMContentLoaded', function() {
     // START 버튼 클릭
     startBtn.addEventListener('click', function() {
-        bgStart.pause();
-        bgStart.currentTime = 0;
+        // bgStart.pause();
+        // bgStart.currentTime = 0;
         startAudio.play();
 
         startBtn.style.display = 'none';
