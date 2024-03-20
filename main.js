@@ -115,13 +115,13 @@ function eachFrame() {
 
         // 30초가 지난 후 추가 감소
         if (timer > 1800) { // 1800 프레임 == 30초, FPS가 60일 경우
-            var additionalDecrease = Math.floor(timer / 600); // 30초가 지난 후, 600프레임마다 간격 추가 감소
+            var additionalDecrease = Math.floor(timer / 400); // 30초가 지난 후, 600프레임마다 간격 추가 감소
             maxInterval = Math.max(20, maxInterval - additionalDecrease); // 여기서 20은 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
 
         if (timer > 2500) {
             var extremeDecrease = Math.floor(timer / 300); // 2000 프레임이 넘었을 때, 500프레임마다 간격 추가 감소
-            maxInterval = Math.max(1, maxInterval - extremeDecrease); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
+            maxInterval = Math.max(1, maxInterval - (extremeDecrease * 2)); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
 
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease + 1)) + 30 + Math.floor(Math.random()*20);
@@ -139,7 +139,7 @@ function eachFrame() {
 
         a.x -= hurdleSpeed;   // 장애물 다가오는 속도
 
-        crashCheck(puppy, a);
+        // crashCheck(puppy, a);
         a.draw();
     });
 
