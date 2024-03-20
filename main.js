@@ -83,7 +83,6 @@ function setupInitialScreen() {
 
 var timer = 0;  // 프레임 단위
 var hurdles = [];
-var speedIncreaseFactor = 0;
 var hurdleSpeed = 5;
 var score = 0;
 var nextHurdleTime = 10;
@@ -108,13 +107,12 @@ function eachFrame() {
 
         // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
         var maxInterval = Math.max(30, 70 - Math.floor(timer / 7000));
-        var intervalDecrease = Math.floor(timer / 3000); // 예를 들어, 5000프레임마다 간격 감소
+        var intervalDecrease = Math.floor(timer / 500); // 예를 들어, 5000프레임마다 간격 감소
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 30;
     }
 
     // 게임 시간이나 점수에 따라 speedIncreaseFactor 증가
     if (timer % 500 === 0) { // 예시: 매 500프레임마다 속도 증가
-        speedIncreaseFactor += 1;
         hurdleSpeed += 1; // 장애물 이동 속도 증가
     }
     
