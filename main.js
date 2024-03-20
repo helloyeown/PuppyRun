@@ -213,6 +213,9 @@ var retry = function() {
     document.body.style.pointerEvents = 'auto';
     xBtn.style.pointerEvents = 'auto';
     displayScore(currentScore);
+
+    bgPlay.currentTime = 0;
+    bgPlay.play();
     
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
     eachFrame();
