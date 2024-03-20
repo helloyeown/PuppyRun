@@ -145,8 +145,10 @@ function eachFrame() {
 
     // 점프
     if (jumping == true) {
-        jumpAudio.currentTime = 0;
-        jumpAudio.play();
+        // jumpAudio.currentTime = 0;
+        // jumpAudio.play();
+        var newJumpAudio = new Audio(jumpAudio.src);
+        newJumpAudio.play();
         puppy.y -= 21;
         jumpTimer++;    // 프레임마다 +1
     }
