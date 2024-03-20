@@ -212,6 +212,7 @@ var retry = function() {
     nextHurdleTime = 10;
     gameStarted = true;
     animation = 0;
+    puppy.y = 400;
     
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
@@ -223,8 +224,7 @@ var retry = function() {
     showModal('insModal');
     
     addEventListeners();
-    // playBtn.addEventListener('click', onPlayButtonClick);
-    // document.addEventListener('keydown', onSpacebarPress);
+    // resetAnimationState();
 }
 
 var exit = function() {

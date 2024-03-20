@@ -31,17 +31,17 @@ function onPlayButtonClick() {
 
 function onSpacebarPress(event) {
     if (event.keyCode === 32) {
-        if (gameStarted && !isPaused) {     // 게임 처음 시작
+        if (gameStarted && !isPaused && !animation) {     // 게임 처음 시작
             console.log('space');
             insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
             eachFrame();
-        } 
-        // else if (isPaused) {      // 게임 재개
-        //     isPaused = false;
-        //     document.body.style.pointerEvents = 'auto';
-        //     eachFrame();
-        // }
+        }
+        else if (isPaused) {      // 게임 재개
+            isPaused = false;
+            document.body.style.pointerEvents = 'auto';
+            eachFrame();
+        }
     }
 }
 
@@ -81,17 +81,20 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'flex';
         document.body.style.pointerEvents = 'auto';
         xBtn.style.pointerEvents = 'none';
+
+        removeEventListeners(); // keydown 이벤트 리스너 제거
     })
     
     // 게임 재개
     noBtn.addEventListener('click', function() {
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
+        animation = 0;
 
         if (isPaused) {
             isPaused = false;
         }
 
-        document.addEventListener('keydown', onSpacebarPress);
+        addEventListeners();
     })
 });
