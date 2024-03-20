@@ -132,7 +132,7 @@ function eachFrame() {
     if (timer % 500 === 0 && timer <= 3000) { 
         hurdleSpeed += 1;
     }
-        
+
     hurdles.forEach(function(a, i, o) {
         // x 좌표가 0 미만이면 제거 (배열에 계속 쌓이는 장애물을 제거)
         if (a.x < 0) {

@@ -101,7 +101,7 @@ body {
     font-size: xx-large;
     font-weight: bold;
     top:5%;
-    left: 50%;
+    left: 43%;
 }
 
 .instruction {
@@ -117,6 +117,7 @@ body {
     bottom: 5%;
     border: none;
     background: none;
+    left: 45%;
 }
 
 .img {
