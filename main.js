@@ -120,10 +120,11 @@ function eachFrame() {
             console.log('장애물 생성 속도 증가');
     
             var extremeDecrease = Math.floor(timer / 300); // 2000 프레임이 넘었을 때, 500프레임마다 간격 추가 감소
-            maxInterval = Math.max(15, maxInterval - extremeDecrease); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
+            maxInterval = Math.max(5, maxInterval - extremeDecrease); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
 
-        nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 40;
+        // nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 40;
+        nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease + 1)) + 30 + Math.floor(Math.random()*20);
     }
 
     // if (timer > nextHurdleTime) {
