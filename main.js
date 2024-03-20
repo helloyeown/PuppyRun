@@ -72,32 +72,24 @@ var ground = function() {
 
 var ground = ground();
 
-var timer = 0;
-var hurdles = [];
 
 
 // 초기 화면 설정
 function setupInitialScreen() {
     puppy.draw(); // 강아지 그리기
     ground.draw();
-    // goal.draw();
 }
 
 
-var start = null; // 게임 시작 시간
+var timer = 0;  // 프레임 단위
+var hurdles = [];
 var speedIncreaseFactor = 0;
 var hurdleSpeed = 5;
 var score = 0;
 var nextHurdleTime = 10;
 
 // animation
-function eachFrame(timestamp) {
-    if (!start) {
-        start = timestamp; // 게임 시작 시간 설정
-    }
-
-    var elapsed = timestamp - start; // 경과 시간 계산
-
+function eachFrame() {
     if (isPaused) {
         return;
     }
@@ -114,10 +106,9 @@ function eachFrame(timestamp) {
         var hurdle = createHurdle();
         hurdles.push(hurdle);
 
-        
         // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
         var maxInterval = Math.max(30, 70 - Math.floor(timer / 7000));
-        var intervalDecrease = Math.floor(timer / 5000); // 예를 들어, 5000프레임마다 간격 감소
+        var intervalDecrease = Math.floor(timer / 3000); // 예를 들어, 5000프레임마다 간격 감소
         nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 30;
     }
 
@@ -191,13 +182,10 @@ document.addEventListener('keydown', function(e) {
 
 var retry = function() {
     // 게임 상태 초기화
-    start = null; // 게임 시작 시간 초기화 추가
     timer = 0; // 타이머 초기화
     hurdles = []; // 장애물 배열 초기화
     jumping = false; // 점프 상태 초기화
     jumpTimer = 0; // 점프 타이머 초기화
-    gameStarted = true;
-    elapsed = 0;
     isPaused = false;
 
     gameOverModal.style.display = 'none';
