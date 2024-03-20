@@ -84,8 +84,9 @@ function setupInitialScreen() {
 var timer = 0;  // 프레임 단위
 var hurdles = [];
 var hurdleSpeed = 5;
-var score = 0;
+var currentScore = 0;
 var nextHurdleTime = 10;
+var scoreUpdateTime = 300;
 
 // animation
 function eachFrame() {
@@ -95,6 +96,11 @@ function eachFrame() {
 
     animation = requestAnimationFrame(eachFrame);
     timer++;
+
+    if (timer % scoreUpdateTime === 0) {
+        currentScore += 10;  // 점수 10점 증가
+        displayScore(currentScore);  // 점수 업데이트 함수 호출
+    }
     
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -110,15 +116,11 @@ function eachFrame() {
 
         // 30초가 지난 후 추가 감소
         if (timer > 1800) { // 1800 프레임 == 30초, FPS가 60일 경우
-            console.log('30초')
-
             var additionalDecrease = Math.floor(timer / 600); // 30초가 지난 후, 600프레임마다 간격 추가 감소
             maxInterval = Math.max(20, maxInterval - additionalDecrease); // 여기서 20은 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
 
         if (timer > 2500) {
-            console.log('장애물 생성 속도 증가');
-    
             var extremeDecrease = Math.floor(timer / 300); // 2000 프레임이 넘었을 때, 500프레임마다 간격 추가 감소
             maxInterval = Math.max(1, maxInterval - extremeDecrease); // 여기서 15는 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
@@ -139,7 +141,6 @@ function eachFrame() {
 
     if (timer % 500 === 0 && timer <= 3000) { 
         hurdleSpeed += 1;
-        console.log('속도 증가 중')
     }
         
     hurdles.forEach(function(a, i, o) {
@@ -211,10 +212,12 @@ var retry = function() {
     jumping = false; // 점프 상태 초기화
     jumpTimer = 0; // 점프 타이머 초기화
     isPaused = false;
-
+    currentScore = 0; // 점수 초기화
+    
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
     xBtn.style.pointerEvents = 'auto';
+    displayScore(currentScore); // 초기 점수 화면에 표시
     
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
     eachFrame();
@@ -225,6 +228,7 @@ var exit = function() {
 }
 
 
-var displaySocre = function() {
-    
+var displayScore = function(currentScore) {
+    var scoreElement = document.querySelector('.score');
+    scoreElement.textContent = 'SCORE: ' + currentScore.toString();
 }
