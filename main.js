@@ -7,6 +7,8 @@ var jumpTimer = 0;
 var animation;
 var gameOverModal = document.getElementById('gameOverModal');
 var retryBtn = document.querySelector('#completeModal .retryBtn');
+var jumpAudio = document.querySelector('#jumpAudio');
+var overAudio = document.querySelector('#overAudio');
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -145,6 +147,7 @@ function eachFrame() {
 
     // 점프
     if (jumping == true) {
+        jumpAudio.play();
         puppy.y -= 21;
         jumpTimer++;    // 프레임마다 +1
     }
@@ -178,6 +181,7 @@ var crashCheck = function(puppy, hurdle) {
     // 충돌
     if (xCrash && yCrash) {
         cancelAnimationFrame(animation);
+        overAudio.play();
         showModal('gameOverModal');
         xBtn.style.pointerEvents = 'none';
     }

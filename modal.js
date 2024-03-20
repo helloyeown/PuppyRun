@@ -7,6 +7,7 @@ var noBtn = document.querySelector('.noBtn');
 var retryBtn = document.querySelector('#completeModal .retryBtn');
 var title = document.querySelector('.title');
 var score = document.querySelector('.score');
+var startAudio = document.querySelector('#startAudio');
 var isPaused = false;
 var gameStarted = false;
 
@@ -23,6 +24,8 @@ var showModal = function(modalId) {
 document.addEventListener('DOMContentLoaded', function() {
     // START 버튼 클릭
     startBtn.addEventListener('click', function() {
+        startAudio.play();
+
         startBtn.style.display = 'none';
         xBtn.style.display = 'block';
         title.style.display = 'none';
@@ -73,10 +76,4 @@ document.addEventListener('DOMContentLoaded', function() {
             eachFrame(); // 게임 재개
         }
     })
-
-
-    // comlete -> retry
-    // retryBtn.addEventListener('click', function() {
-    //     completeModal.style.display = 'none';
-    // })
 });
