@@ -100,19 +100,39 @@ function eachFrame() {
 
     ground.draw();
 
-        if (timer > nextHurdleTime) {
-            var hurdle = createHurdle();
-            hurdles.push(hurdle);
+    if (timer > nextHurdleTime) {
+        var hurdle = createHurdle();
+        hurdles.push(hurdle);
 
-            // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
-            var maxInterval = Math.max(30, 70 - Math.floor(timer / 3000));  // 생성 간격 최대값
-            var intervalDecrease = Math.floor(timer / 500); // 300 프레임마다 간격 감소
-            nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 30;
+        // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
+        var maxInterval = Math.max(30, 70 - Math.floor(timer / 1000));  // 생성 간격 최대값
+        var intervalDecrease = Math.floor(timer / 300); // 300 프레임마다 간격 감소
+
+        // 30초가 지난 후 추가 감소
+        if (timer > 1800) { // 1800 프레임 == 30초, FPS가 60일 경우
+            console.log('30초')
+
+            var additionalDecrease = Math.floor(timer / 600); // 30초가 지난 후, 600프레임마다 간격 추가 감소
+            maxInterval = Math.max(20, maxInterval - additionalDecrease); // 여기서 20은 최소 간격을 의미하며, 필요에 따라 조정 가능
         }
 
-        if (timer % 500 === 0) {  // 500프레임마다 이동 속도 증가
-            hurdleSpeed += 1;
-        }
+        nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 40;
+    }
+
+    // if (timer > nextHurdleTime) {
+    //     var hurdle = createHurdle();
+    //     hurdles.push(hurdle);
+
+    //     // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
+    //     var maxInterval = Math.max(30, 70 - Math.floor(timer / 1000));  // 생성 간격 최대값
+    //     var intervalDecrease = Math.floor(timer / 300); // 300 프레임마다 간격 감소
+    //     nextHurdleTime = timer + Math.floor(Math.random() * (maxInterval - intervalDecrease)) + 40;
+    // }
+
+    if (timer % 500 === 0 && timer <= 3000) {  // 500프레임마다 이동 속도 증가
+        hurdleSpeed += 1;
+        console.log('속도 증가 중')
+    }
         
     hurdles.forEach(function(a, i, o) {
         // x 좌표가 0 미만이면 제거 (배열에 계속 쌓이는 장애물을 제거)
