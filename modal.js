@@ -8,7 +8,6 @@ var retryBtn = document.querySelector('#completeModal .retryBtn');
 var title = document.querySelector('.title');
 var score = document.querySelector('.score');
 var startAudio = document.querySelector('#startAudio');
-var bgPlay = document.querySelector('#bgPlay');
 var isPaused = false;
 var gameStarted = false;
 
@@ -22,41 +21,59 @@ var showModal = function(modalId) {
 }
 
 
-document.addEventListener('DOMContentLoaded', function() {
-    // START 버튼 클릭
-    startBtn.addEventListener('click', function() {
-        startAudio.play();
+function onPlayButtonClick() {
+    console.log('click');
+    insModal.style.display = 'none';
+    xBtn.style.pointerEvents = 'auto';
 
-        startBtn.style.display = 'none';
-        xBtn.style.display = 'block';
-        title.style.display = 'none';
-        score.style.display = 'block';
+    resetAnimationState();
+}
 
-        gameStarted = true;
-
-        showModal('insModal');
-    });
-    
-
-    // play 버튼 클릭
-    playBtn.addEventListener('click', function() {
-        var insModal = document.getElementById('insModal');
-        insModal.style.display = 'none';
-        xBtn.style.pointerEvents = 'auto';
-        bgPlay.play();
-    });
-
-    // play 버튼 스페이스바
-    document.addEventListener('keydown', function(event) {
-        if (event.keyCode === 32 && gameStarted && !animation) {
+function onSpacebarPress(event) {
+    if (event.keyCode === 32) {
+        if (gameStarted && !isPaused) {     // 게임 처음 시작
+            console.log('space');
             insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
-            bgPlay.play();
-
             eachFrame();
-        }
-    });
+        } 
+        // else if (isPaused) {      // 게임 재개
+        //     isPaused = false;
+        //     document.body.style.pointerEvents = 'auto';
+        //     eachFrame();
+        // }
+    }
+}
 
+function startGame() {
+    startAudio.play();
+    startBtn.style.display = 'none';
+    xBtn.style.display = 'block';
+    title.style.display = 'none';
+    score.style.display = 'block';
+    gameStarted = true;
+
+    showModal('insModal');
+}
+
+// 이벤트 리스너 등록 함수
+function addEventListeners() {
+    playBtn.addEventListener('click', onPlayButtonClick);
+    document.addEventListener('keydown', onSpacebarPress);
+}
+
+// 이벤트 리스너 제거 함수
+function removeEventListeners() {
+    playBtn.removeEventListener('click', onPlayButtonClick);
+    document.removeEventListener('keydown', onSpacebarPress);
+}
+
+
+document.addEventListener('DOMContentLoaded', function() {
+    addEventListeners();
+
+    // START 버튼 클릭
+    startBtn.addEventListener('click', startGame);
 
     // X 버튼 클릭 (일시정지)
     xBtn.addEventListener('click', function() {
@@ -64,18 +81,17 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'flex';
         document.body.style.pointerEvents = 'auto';
         xBtn.style.pointerEvents = 'none';
-        bgPlay.pause();
     })
     
     // 게임 재개
     noBtn.addEventListener('click', function() {
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
-        bgPlay.play();
 
         if (isPaused) {
             isPaused = false;
-            eachFrame();
         }
+
+        document.addEventListener('keydown', onSpacebarPress);
     })
 });

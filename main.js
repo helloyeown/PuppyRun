@@ -9,7 +9,7 @@ var gameOverModal = document.getElementById('gameOverModal');
 var retryBtn = document.querySelector('#completeModal .retryBtn');
 var jumpAudio = document.querySelector('#jumpAudio');
 var overAudio = document.querySelector('#overAudio');
-var bgPlay = document.querySelector('#bgPlay');
+var playBtn = document.querySelector('.playBtn');
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -181,8 +181,6 @@ var crashCheck = function(puppy, hurdle) {
 
     if (xCrash && yCrash) {
         cancelAnimationFrame(animation);
-        bgPlay.pause();
-        bgPlay.currentTime = 0;
         overAudio.play();
         showModal('gameOverModal');
         xBtn.style.pointerEvents = 'none';
@@ -201,6 +199,8 @@ document.addEventListener('keydown', function(e) {
 
 // game over 후 다시 시작
 var retry = function() {
+    removeEventListeners();
+
     // 게임 상태 초기화
     timer = 0;
     hurdles = [];
@@ -210,17 +210,21 @@ var retry = function() {
     currentScore = 0;
     hurdleSpeed = 5;
     nextHurdleTime = 10;
+    gameStarted = true;
+    animation = 0;
     
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
     xBtn.style.pointerEvents = 'auto';
     displayScore(currentScore);
 
-    bgPlay.currentTime = 0;
-    bgPlay.play();
-    
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
-    eachFrame();
+
+    showModal('insModal');
+    
+    addEventListeners();
+    // playBtn.addEventListener('click', onPlayButtonClick);
+    // document.addEventListener('keydown', onSpacebarPress);
 }
 
 var exit = function() {
@@ -230,4 +234,11 @@ var exit = function() {
 var displayScore = function(currentScore) {
     var scoreElement = document.querySelector('.score');
     scoreElement.textContent = 'SCORE: ' + currentScore.toString();
+}
+
+var resetAnimationState = function() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    puppy.draw();
+    ground.draw();
 }
