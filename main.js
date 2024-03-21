@@ -225,7 +225,7 @@ var retry = function() {
     
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
-    xBtn.style.pointerEvents = 'auto';
+    xBtn.style.pointerEvents = 'none';
     displayScore(currentScore);
 
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
