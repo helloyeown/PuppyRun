@@ -52,7 +52,7 @@ function onSpacebarPress(event) {
 }
 
 function startGame() {
-    bgStart.pause();
+    // bgStart.pause();
     startAudio.play();
     startBtn.style.display = 'none';
     xBtn.style.display = 'block';
