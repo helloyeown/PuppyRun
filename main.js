@@ -10,6 +10,7 @@ var retryBtn = document.querySelector('#completeModal .retryBtn');
 var jumpAudio = document.querySelector('#jumpAudio');
 var overAudio = document.querySelector('#overAudio');
 var playBtn = document.querySelector('.playBtn');
+var bgPlay = document.querySelector('#bgPlay');
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -63,7 +64,7 @@ var ground = function() {
             ctx.beginPath();
             ctx.moveTo(0, 451); // 땅의 시작점, 강아지의 y 위치보다 조금 더 아래인 451으로 설정
             ctx.lineTo(canvas.width, 451); // canvas의 가로 길이만큼 직선을 그림
-            ctx.strokeStyle = 'black'; // 선의 색상을 검정색으로 설정
+            ctx.strokeStyle = 'black';
             ctx.lineWidth = 2;
             ctx.stroke(); // 선을 그림
         }
@@ -85,7 +86,7 @@ var hurdles = [];
 var hurdleSpeed = 5;
 var currentScore = 0;
 var nextHurdleTime = 10;
-var scoreUpdateTime = 300;
+var scoreUpdateTime = 300;  // 5초 (5 * 60프레임)
 
 // animation
 function eachFrame() {
@@ -93,9 +94,12 @@ function eachFrame() {
         return;
     }
 
+    bgPlay.play();
+
     animation = requestAnimationFrame(eachFrame);
     timer++;
 
+    // 5초마다 스코어 +10점 업데이트
     if (timer % scoreUpdateTime === 0) {
         currentScore += 10; 
         displayScore(currentScore);
@@ -105,6 +109,8 @@ function eachFrame() {
 
     ground.draw();
 
+
+    // 장애물 생성, 속도 조절 로직
     if (timer > nextHurdleTime) {
         var hurdle = createHurdle();
         hurdles.push(hurdle);
@@ -142,6 +148,7 @@ function eachFrame() {
         crashCheck(puppy, a);
         a.draw();
     });
+
 
     // 점프
     if (jumping == true) {
@@ -181,6 +188,7 @@ var crashCheck = function(puppy, hurdle) {
 
     if (xCrash && yCrash) {
         cancelAnimationFrame(animation);
+        bgPlay.pause();
         overAudio.play();
         showModal('gameOverModal');
         xBtn.style.pointerEvents = 'none';
@@ -224,7 +232,6 @@ var retry = function() {
     showModal('insModal');
     
     addEventListeners();
-    // resetAnimationState();
 }
 
 var exit = function() {

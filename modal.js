@@ -8,6 +8,8 @@ var retryBtn = document.querySelector('#completeModal .retryBtn');
 var title = document.querySelector('.title');
 var score = document.querySelector('.score');
 var startAudio = document.querySelector('#startAudio');
+var bgStart = document.querySelector('#bgStart');
+var bgPlay = document.querySelector('#bgPlay');
 var isPaused = false;
 var gameStarted = false;
 
@@ -22,7 +24,6 @@ var showModal = function(modalId) {
 
 
 function onPlayButtonClick() {
-    console.log('click');
     insModal.style.display = 'none';
     xBtn.style.pointerEvents = 'auto';
 
@@ -32,7 +33,6 @@ function onPlayButtonClick() {
 function onSpacebarPress(event) {
     if (event.keyCode === 32) {
         if (gameStarted && !isPaused && !animation) {     // 게임 처음 시작
-            console.log('space');
             insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
             eachFrame();
@@ -46,6 +46,7 @@ function onSpacebarPress(event) {
 }
 
 function startGame() {
+    bgStart.pause();
     startAudio.play();
     startBtn.style.display = 'none';
     xBtn.style.display = 'block';
@@ -81,6 +82,7 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'flex';
         document.body.style.pointerEvents = 'auto';
         xBtn.style.pointerEvents = 'none';
+        bgPlay.pause();
 
         removeEventListeners(); // keydown 이벤트 리스너 제거
     })
@@ -90,6 +92,7 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
         animation = 0;
+        bgPlay.play();
 
         if (isPaused) {
             isPaused = false;
