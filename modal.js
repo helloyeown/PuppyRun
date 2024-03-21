@@ -8,7 +8,6 @@ var retryBtn = document.querySelector('#completeModal .retryBtn');
 var title = document.querySelector('.title');
 var score = document.querySelector('.score');
 var startAudio = document.querySelector('#startAudio');
-var bgStart = document.querySelector('#bgStart');
 var bgPlay = document.querySelector('#bgPlay');
 var isPaused = false;
 var gameStarted = false;
@@ -52,7 +51,6 @@ function onSpacebarPress(event) {
 }
 
 function startGame() {
-    // bgStart.pause();
     startAudio.play();
     startBtn.style.display = 'none';
     xBtn.style.display = 'block';
