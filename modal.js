@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
         animation = 0;
-        bgPlay.play();
+        // bgPlay.play();
 
         if (isPaused) {
             isPaused = false;
