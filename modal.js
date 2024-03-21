@@ -35,11 +35,18 @@ function onSpacebarPress(event) {
         if (gameStarted && !isPaused && !animation) {     // 게임 처음 시작
             insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
+            
+            bgPlay.currentTime = 0;
+            bgPlay.play();
+
             eachFrame();
         }
         else if (isPaused) {      // 게임 재개
             isPaused = false;
             document.body.style.pointerEvents = 'auto';
+
+            bgPlay.play();
+
             eachFrame();
         }
     }

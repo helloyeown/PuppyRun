@@ -94,7 +94,7 @@ function eachFrame() {
         return;
     }
 
-    bgPlay.play();
+    // bgPlay.play();
 
     animation = requestAnimationFrame(eachFrame);
     timer++;
