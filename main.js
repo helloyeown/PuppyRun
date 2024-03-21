@@ -145,17 +145,17 @@ function eachFrame() {
 
         a.x -= hurdleSpeed;   // 장애물 다가오는 속도
 
-        // crashCheck(puppy, a);
+        crashCheck(puppy, a);
         a.draw();
     });
 
 
     // 점프
     if (jumping == true) {
-        // jumpAudio.currentTime = 0;
-        // jumpAudio.play();
-        var newJumpAudio = new Audio(jumpAudio.src);
-        newJumpAudio.play();
+        jumpAudio.currentTime = 0;
+        jumpAudio.play();
+        // var newJumpAudio = new Audio(jumpAudio.src);
+        // newJumpAudio.play();
         puppy.y -= 21;
         jumpTimer++;    // 프레임마다 +1
     }
