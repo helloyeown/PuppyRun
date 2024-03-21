@@ -221,6 +221,7 @@ var retry = function() {
     gameStarted = true;
     animation = 0;
     puppy.y = 400;
+    bgPlay.currentTime = 0;
     
     gameOverModal.style.display = 'none';
     document.body.style.pointerEvents = 'auto';
