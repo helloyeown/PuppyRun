@@ -17,6 +17,7 @@ var hurdleSpeed = 5;
 var currentScore = 0;
 var nextHurdleTime = 10;
 var scoreUpdateTime = 300;  // 5초 (5 * 60프레임)
+var jumping = false;    // 점프 중
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -108,8 +109,6 @@ function eachFrame() {
         return;
     }
 
-    // bgPlay.play();
-
     animation = requestAnimationFrame(eachFrame);
     timer++;
 
@@ -168,8 +167,6 @@ function eachFrame() {
     if (jumping == true) {
         jumpAudio.currentTime = 0;
         jumpAudio.play();
-        // var newJumpAudio = new Audio(jumpAudio.src);
-        // newJumpAudio.play();
         puppy.y -= 21;
         jumpTimer++;    // 프레임마다 +1
     }
@@ -209,9 +206,6 @@ var crashCheck = function(puppy, hurdle) {
         xBtn.style.pointerEvents = 'none';
     }
 }
-
-
-var jumping = false;    // 점프 중
 
 document.addEventListener('keydown', function(e) {
     if (e.keyCode === 32 && !jumping && jumpTimer === 0) {

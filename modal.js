@@ -35,6 +35,7 @@ function onSpacebarPress(event) {
         if (gameStarted && !isPaused && !animation) {     // 게임 처음 시작
             insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
+            jumping = false;
         
             bgPlay.play();
 
