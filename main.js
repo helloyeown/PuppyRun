@@ -11,6 +11,12 @@ var jumpAudio = document.querySelector('#jumpAudio');
 var overAudio = document.querySelector('#overAudio');
 var playBtn = document.querySelector('.playBtn');
 var bgPlay = document.querySelector('#bgPlay');
+var timer = 0;  // 프레임 단위
+var hurdles = [];
+var hurdleSpeed = 5;
+var currentScore = 0;
+var nextHurdleTime = 10;
+var scoreUpdateTime = 300;  // 5초 (5 * 60프레임)
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -21,6 +27,8 @@ var hurdleImg2 = new Image();
 hurdleImg2.src = './public/hurdle2.png';
 var puppyImg = new Image();
 puppyImg.src = './public/puppy.png';
+var crashImg = new Image();
+crashImg.src = './public/crashImg.png';
 
 
 
@@ -35,8 +43,8 @@ var createPuppy = function() {
             ctx.clearRect(this.x, this.y, this.width, this.height); 
             ctx.drawImage(puppyImg, this.x, this.y);
         }
-    };
-};
+    }
+}
 
 var puppy = createPuppy();
 puppy.x += 1;
@@ -57,6 +65,20 @@ var createHurdle = function() {
     }
 }
 
+// 충돌 효과
+var crashAni = function() {
+    return {    
+        x: 45,
+        y: 455,
+        width: 30,
+        height: 30,
+        draw: function() {
+            ctx.clearRect(this.x, this.y, this.width, this.height); 
+            ctx.drawImage(crashImg, this.x, this.y);
+        }
+    }
+}
+
 // 땅
 var ground = function() {
     return {
@@ -71,22 +93,14 @@ var ground = function() {
     }
 }
 
+var crashAni = crashAni();
 var ground = ground();
-
 
 // 초기 화면 설정
 function setupInitialScreen() {
     puppy.draw();
     ground.draw();
 }
-
-
-var timer = 0;  // 프레임 단위
-var hurdles = [];
-var hurdleSpeed = 5;
-var currentScore = 0;
-var nextHurdleTime = 10;
-var scoreUpdateTime = 300;  // 5초 (5 * 60프레임)
 
 // animation
 function eachFrame() {
@@ -187,6 +201,7 @@ var crashCheck = function(puppy, hurdle) {
     var yCrash = (puppy.y + puppy.height >= hurdle.y - gap)
 
     if (xCrash && yCrash) {
+        crashAni.draw();
         cancelAnimationFrame(animation);
         bgPlay.pause();
         overAudio.play();

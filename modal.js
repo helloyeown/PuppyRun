@@ -1,4 +1,5 @@
 var startBtn = document.querySelector('.startBtn');
+var selectStartBtn = document.getElementById('selectStartBtn');
 var playBtn = document.querySelector('.playBtn');
 var insModal = document.getElementById('insModal');
 var exitModal = document.getElementById('exitModal')
@@ -52,7 +53,7 @@ function onSpacebarPress(event) {
 
 function startGame() {
     startAudio.play();
-    startBtn.style.display = 'none';
+    selectStartBtn.style.display = 'none';
     xBtn.style.display = 'block';
     title.style.display = 'none';
     score.style.display = 'block';
@@ -78,7 +79,7 @@ document.addEventListener('DOMContentLoaded', function() {
     addEventListeners();
 
     // START 버튼 클릭
-    startBtn.addEventListener('click', startGame);
+    selectStartBtn.addEventListener('click', startGame);
 
     // X 버튼 클릭 (일시정지)
     xBtn.addEventListener('click', function() {

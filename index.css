@@ -40,10 +40,18 @@ body {
     display: none;
 }
 
+#normalBtn {
+    left: 39%;
+}
+
+#hardBtn {
+    left: 61%;
+}
+
 .startBtn {
+    width: 230px;
     position: absolute;
     top: 50%;
-    left: 50%;
     transform: translate(-50%, -50%);
 
     background-color: aliceblue;
