@@ -103,6 +103,12 @@ function setupInitialScreen() {
     ground.draw();
 }
 
+// 난이도 조절
+var modeControl = function(mode) {
+    // 장애물이 미리 배치되어 있는 코드
+    // 스피드 초기화 코드 (기존보다 빠르게)
+}
+
 // animation
 function eachFrame() {
     if (isPaused) {

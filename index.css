@@ -38,6 +38,7 @@ body {
 .score {
     font-size: 50px;
     display: none;
+    margin: 0;
 }
 
 #normalBtn {
@@ -115,7 +116,7 @@ body {
 .instruction {
     position: absolute;
     text-align: left;
-    font-size: 20px;
+    font-size: 18px;
     left: 2%;
     top: 30%;
 }
@@ -232,4 +233,10 @@ body {
     top: 45%;
     left: 22%;
     position: absolute;
+}
+
+#difficulty {
+    font-size: 40px;
+    display: none;
+    margin: 0;
 }

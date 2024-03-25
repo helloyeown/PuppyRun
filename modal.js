@@ -12,7 +12,26 @@ var startAudio = document.querySelector('#startAudio');
 var bgPlay = document.querySelector('#bgPlay');
 var isPaused = false;
 var gameStarted = false;
+var difficulty = document.getElementById('difficulty');
+var mode = 'normal';
 
+
+function startGame() {
+    startAudio.play();
+    selectStartBtn.style.display = 'none';
+    xBtn.style.display = 'block';
+    title.style.display = 'none';
+    score.style.display = 'block';
+    difficulty.style.display = 'block';
+    gameStarted = true;
+
+    showModal('insModal');
+}
+
+var selectMode = function(select) {
+    mode = select;
+    difficulty.textContent = mode;
+}
 
 var showModal = function(modalId) {
     var modal = document.getElementById(modalId);
@@ -21,7 +40,6 @@ var showModal = function(modalId) {
     modal.style.pointerEvents = "auto";
     startBtn.style.pointerEvents = "auto";
 }
-
 
 function onPlayButtonClick() {
     insModal.style.display = 'none';
@@ -50,17 +68,6 @@ function onSpacebarPress(event) {
             eachFrame();
         }
     }
-}
-
-function startGame() {
-    startAudio.play();
-    selectStartBtn.style.display = 'none';
-    xBtn.style.display = 'block';
-    title.style.display = 'none';
-    score.style.display = 'block';
-    gameStarted = true;
-
-    showModal('insModal');
 }
 
 // 이벤트 리스너 등록 함수
@@ -98,7 +105,6 @@ document.addEventListener('DOMContentLoaded', function() {
         exitModal.style.display = 'none';
         xBtn.style.pointerEvents = 'auto';
         animation = 0;
-        // bgPlay.play();
 
         if (isPaused) {
             isPaused = false;
