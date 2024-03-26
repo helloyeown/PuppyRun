@@ -29,6 +29,7 @@ body {
 #scoreDiv {
     position: absolute;
     top: 1%;
+    left: 40%;
     text-align: center;
 }
 
@@ -40,6 +41,7 @@ body {
 #canvasDiv {
     position: absolute;
     bottom: 0;
+    left: 8%;
 
 }
 
@@ -47,6 +49,7 @@ body {
     font-size: 50px;
     position: absolute;
     top: 2%;
+    left: 40%;
 }
 
 .score {
