@@ -109,7 +109,7 @@ var modeControl = function(mode) {
         console.log('hade ver')
         // 장애물이 미리 배치되어 있는 코드
         // 스피드 초기화 코드 (기존보다 빠르게)
-        hurdleSpeed = 10;
+        hurdleSpeed = 13;
     }
 }
 
@@ -160,12 +160,12 @@ function eachFrame(mode) {
         if (mode == 'hard') {
             // 하드 모드의 경우 간격 감소량을 더 크게 설정
             intervalDecrease += 300; // 이 값을 조정하여 생성 간격을 더 줄일 수 있습니다.
-            maxInterval = Math.max(1, maxInterval - 200); // 최대 간격도 더 줄임
+            maxInterval = Math.max(1, maxInterval - 1000); // 최대 간격도 더 줄임
 
             // 특정 조건에서 여러 장애물을 한 번에 생성
-            if (timer % 1000 === 0) { // 예: 매 1000 프레임마다
-                createMultipleHurdles(3); // 한 번에 3개의 장애물 생성
-            }
+            // if (timer % 1000 === 0) { // 예: 매 1000 프레임마다
+                // createMultipleHurdles(100); // 한 번에 3개의 장애물 생성
+            // }
         }
 
         // 30초가 지난 후 추가 감소
