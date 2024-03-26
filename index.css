@@ -26,13 +26,27 @@ body {
     align-items: center; /* 수직 방향 가운데 정렬 */
 }
 
+#scoreDiv {
+    position: absolute;
+    top: 1%;
+    text-align: center;
+}
+
 #canvas {
     /* background: rgb(205, 205, 205); */
-    margin-bottom: 5%;
+    /* margin-bottom: 5%; */
+}
+
+#canvasDiv {
+    position: absolute;
+    bottom: 0;
+
 }
 
 .title {
     font-size: 50px;
+    position: absolute;
+    top: 2%;
 }
 
 .score {

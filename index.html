@@ -13,10 +13,14 @@
 
         <div class="content">
             <h1 class="title">Puppy Run!</h1>
-            <h1 id="difficulty">normal</h1>
-            <h1 class="score">SCORE: 0</h1>
+            <div id="scoreDiv">
+                <h1 id="difficulty">normal</h1>
+                <h1 class="score">SCORE: 0</h1>
+            </div>
             <button class="xBtn btn"><img src="./public/x.png" class="xImg"></button>
-            <canvas id="canvas"></canvas>
+            <div id="canvasDiv">
+                <canvas id="canvas"></canvas>
+            </div>
             <div id="selectStartBtn">
                 <button class="startBtn" id="normalBtn" onclick="selectMode('normal')">NORMAL</button>
                 <button class="startBtn" id="hardBtn" onclick="selectMode('hard')">HARD</button>

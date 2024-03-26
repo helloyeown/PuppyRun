@@ -110,7 +110,7 @@ var modeControl = function(mode) {
 }
 
 // animation
-function eachFrame() {
+function eachFrame(mode) {
     if (isPaused) {
         return;
     }
@@ -128,6 +128,11 @@ function eachFrame() {
 
     ground.draw();
 
+    if (mode == 'normal') {
+        console.log('normal')
+    } else if (mode == 'hard') {
+        console.log('hard')
+    }
 
     // 장애물 생성, 속도 조절 로직
     if (timer > nextHurdleTime) {

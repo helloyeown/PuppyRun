@@ -57,7 +57,7 @@ function onSpacebarPress(event) {
         
             bgPlay.play();
 
-            eachFrame();
+            eachFrame(mode);
         }
         else if (isPaused) {      // 게임 재개
             isPaused = false;
@@ -65,7 +65,7 @@ function onSpacebarPress(event) {
 
             bgPlay.play();
 
-            eachFrame();
+            eachFrame(mode);
         }
     }
 }
