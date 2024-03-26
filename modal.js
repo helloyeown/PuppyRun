@@ -45,7 +45,7 @@ function onPlayButtonClick() {
     insModal.style.display = 'none';
     xBtn.style.pointerEvents = 'auto';
 
-    resetAnimationState();
+    resetAnimationState(mode);
 }
 
 function onSpacebarPress(event) {
@@ -56,8 +56,12 @@ function onSpacebarPress(event) {
             jumping = false;
         
             bgPlay.play();
+            
+            if (resetYn == 'N') {
+                resetAnimationState(mode);
+            }
 
-            eachFrame(mode);
+            eachFrame();
         }
         else if (isPaused) {      // 게임 재개
             isPaused = false;
@@ -65,7 +69,7 @@ function onSpacebarPress(event) {
 
             bgPlay.play();
 
-            eachFrame(mode);
+            eachFrame();
         }
     }
 }

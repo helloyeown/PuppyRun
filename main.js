@@ -18,6 +18,9 @@ var currentScore = 0;
 var nextHurdleTime = 10;
 var scoreUpdateTime = 300;  // 5초 (5 * 60프레임)
 var jumping = false;    // 점프 중
+var hardHurdleImg ;
+var hardFstYn = "N";
+var resetYn = "N";
 
 canvas.width = 1000;
 canvas.height = 700;
@@ -51,14 +54,21 @@ var puppy = createPuppy();
 puppy.x += 1;
 
 // 장애물
-var createHurdle = function() {
+var createHurdle = function(mode, hardFstYn) {
     var randomImg = Math.random() < 0.5 ? hurdleImg1 : hurdleImg2;
 
+    if(mode == 'hard' && hardFstYn == 'Y') {
+        xLocation = 550;
+    } else {
+        xLocation = 1000;
+    }
+    
     return {
-        x: 1000,
+        x: xLocation,
         y: 400,
         width: 50,
         height: 50,
+        img : randomImg,
         draw: function() {
             ctx.clearRect(this.x, this.y, this.width, this.height);
             ctx.drawImage(randomImg, this.x, this.y);
@@ -106,23 +116,12 @@ function setupInitialScreen() {
 // 난이도 조절
 var modeControl = function(mode) {
     if (mode == 'hard') {
-        console.log('hade ver')
-        // 장애물이 미리 배치되어 있는 코드
-        // 스피드 초기화 코드 (기존보다 빠르게)
-        hurdleSpeed = 13;
-    }
-}
-
-// 하드 모드에서 장애물을 더 자주 생성하기 위한 로직
-function createMultipleHurdles(number) {
-    for (let i = 0; i < number; i++) {
-        var hurdle = createHurdle();
-        hurdles.push(hurdle);
+        hurdleSpeed = 8;
     }
 }
 
 // animation
-function eachFrame(mode) {
+function eachFrame() {
     if (isPaused) {
         return;
     }
@@ -141,32 +140,31 @@ function eachFrame(mode) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     ground.draw();
-
-    if (mode == 'normal') {
-        console.log('normal')
-    } else if (mode == 'hard') {
-        console.log('hard')
-    }
-
+    
     // 장애물 생성, 속도 조절 로직
     if (timer > nextHurdleTime) {
-        var hurdle = createHurdle();
-        hurdles.push(hurdle);
+
+        //if (mode == 'hard') {
+        //    console.log('hard mode')
+        //    var hardAni = resetAnimationState(mode);
+        //    hurdles = hardAni.hardHurdles;
+        //    console.log(hardAni.hardHurdles)
+        //} else if (mode == 'normal') {
+            var hurdle = createHurdle(mode);
+            hurdles.push(hurdle);
+        //    console.log('normalllllllllllllllll')
+        //}
+
 
         // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
         var maxInterval = Math.max(30, 70 - Math.floor(timer / 1000));  // 생성 간격 최대값
         var intervalDecrease = Math.floor(timer / 300); // 300 프레임마다 간격 감소
 
-        if (mode == 'hard') {
-            // 하드 모드의 경우 간격 감소량을 더 크게 설정
-            intervalDecrease += 300; // 이 값을 조정하여 생성 간격을 더 줄일 수 있습니다.
-            maxInterval = Math.max(1, maxInterval - 1000); // 최대 간격도 더 줄임
-
-            // 특정 조건에서 여러 장애물을 한 번에 생성
-            // if (timer % 1000 === 0) { // 예: 매 1000 프레임마다
-                // createMultipleHurdles(100); // 한 번에 3개의 장애물 생성
-            // }
-        }
+        // if (mode == 'hard') {
+        //     // 하드 모드의 경우 간격 감소량을 더 크게 설정
+        //     intervalDecrease += 300; // 이 값을 조정하여 생성 간격을 더 줄일 수 있습니다.
+        //     maxInterval = Math.max(1, maxInterval - 1000); // 최대 간격도 더 줄임
+        // }
 
         // 30초가 지난 후 추가 감소
         if (timer > 1800) {
@@ -185,7 +183,7 @@ function eachFrame(mode) {
     if (timer % 500 === 0 && timer <= 3000) { 
         hurdleSpeed += 1;
     }
-
+    
     hurdles.forEach(function(a, i, o) {
         // x 좌표가 0 미만이면 제거 (배열에 계속 쌓이는 장애물을 제거)
         if (a.x < 0) {
@@ -195,6 +193,10 @@ function eachFrame(mode) {
         a.x -= hurdleSpeed;   // 장애물 다가오는 속도
 
         crashCheck(puppy, a);
+        if (hardFstYn == 'Y') {
+             a.img = hardHurdleImg;
+             hardFstYn = 'N';
+        }
         a.draw();
     });
 
@@ -289,9 +291,22 @@ var displayScore = function(currentScore) {
     scoreElement.textContent = 'SCORE: ' + currentScore.toString();
 }
 
-var resetAnimationState = function() {
+var resetAnimationState = function(mode) {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     puppy.draw();
     ground.draw();
+
+    if (mode == 'hard') {
+        hardFstYn = "Y"
+        var hardHurdle = createHurdle(mode, hardFstYn);
+        hardHurdle.draw();
+        hurdles.push(hardHurdle);
+        hardHurdleImg = hardHurdle.img
+    }
+
+    resetYn = "Y";
+    //return {
+    //    hardHurdles: hurdles
+    //} 
 }
