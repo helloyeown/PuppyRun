@@ -307,7 +307,4 @@ var resetAnimationState = function(mode) {
     }
 
     resetYn = "Y";
-    //return {
-    //    hardHurdles: hurdles
-    //} 
 }
