@@ -54,6 +54,7 @@ function onSpacebarPress(event) {
         if (gameStarted && !isPaused && !animation) {     // 게임 처음 시작
             if(insModal.style.display == 'flex') {
                 insModal.style.display = 'none'
+                xBtn.style.pointerEvents = 'auto';
                 jumping = false;
             } else {
                 document.body.style.pointerEvents = 'auto';
