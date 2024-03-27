@@ -69,7 +69,6 @@ function onSpacebarPress(event) {
             }
         } else if (isPaused) {      // 게임 재개
             isPaused = false;
-            // insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
 
             bgPlay.play();

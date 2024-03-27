@@ -143,28 +143,12 @@ function eachFrame() {
     
     // 장애물 생성, 속도 조절 로직
     if (timer > nextHurdleTime) {
-
-        //if (mode == 'hard') {
-        //    console.log('hard mode')
-        //    var hardAni = resetAnimationState(mode);
-        //    hurdles = hardAni.hardHurdles;
-        //    console.log(hardAni.hardHurdles)
-        //} else if (mode == 'normal') {
-            var hurdle = createHurdle(mode);
-            hurdles.push(hurdle);
-        //    console.log('normalllllllllllllllll')
-        //}
-
+        var hurdle = createHurdle(mode);
+        hurdles.push(hurdle);
 
         // 게임 진행 시간에 따라 장애물 생성 간격을 더 줄임
         var maxInterval = Math.max(30, 70 - Math.floor(timer / 1000));  // 생성 간격 최대값
         var intervalDecrease = Math.floor(timer / 300); // 300 프레임마다 간격 감소
-
-        // if (mode == 'hard') {
-        //     // 하드 모드의 경우 간격 감소량을 더 크게 설정
-        //     intervalDecrease += 300; // 이 값을 조정하여 생성 간격을 더 줄일 수 있습니다.
-        //     maxInterval = Math.max(1, maxInterval - 1000); // 최대 간격도 더 줄임
-        // }
 
         // 30초가 지난 후 추가 감소
         if (timer > 1800) {
