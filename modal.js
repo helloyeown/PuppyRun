@@ -14,6 +14,7 @@ var isPaused = false;
 var gameStarted = false;
 var difficulty = document.getElementById('difficulty');
 var mode = 'normal';
+var spacebarPressedOnce = false;
 
 
 function startGame() {
@@ -44,27 +45,31 @@ var showModal = function(modalId) {
 function onPlayButtonClick() {
     insModal.style.display = 'none';
     xBtn.style.pointerEvents = 'auto';
-
+    
     resetAnimationState(mode);
 }
-
+    
 function onSpacebarPress(event) {
     if (event.keyCode === 32) {
         if (gameStarted && !isPaused && !animation) {     // 게임 처음 시작
-            insModal.style.display = 'none';
-            document.body.style.pointerEvents = 'auto';
-            jumping = false;
-        
-            bgPlay.play();
+            if(insModal.style.display == 'flex') {
+                insModal.style.display = 'none'
+                jumping = false;
+            } else {
+                document.body.style.pointerEvents = 'auto';
+                jumping = false;
             
+                bgPlay.play();
+
+                eachFrame();
+            }
+                
             if (resetYn == 'N') {
                 resetAnimationState(mode);
             }
-
-            eachFrame();
-        }
-        else if (isPaused) {      // 게임 재개
+        } else if (isPaused) {      // 게임 재개
             isPaused = false;
+            // insModal.style.display = 'none';
             document.body.style.pointerEvents = 'auto';
 
             bgPlay.play();
