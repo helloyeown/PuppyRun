@@ -278,6 +278,7 @@ var retry = function() {
     cancelAnimationFrame(animation); // 현재 진행 중인 애니메이션을 취소
 
     showModal('insModal');
+    resetAnimationState(mode)
     
     addEventListeners();
 }
