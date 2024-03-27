@@ -258,3 +258,12 @@ body {
     display: none;
     margin: 0;
 }
+
+#insXBtn {
+    border: none;
+    background: none;
+    position: absolute;
+    top: 4%;
+    left: 90%;
+    cursor: pointer;
+}
